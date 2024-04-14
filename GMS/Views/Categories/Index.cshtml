@@ -1,0 +1,37 @@
+﻿@using GMS_BusinessLogic
+@model List<Category>
+
+<form method="post" asp-action="add">
+	<div class="input-group mb-3">
+		<input class="form-control" name="name" placeholder="Category Name..." required />
+		<div class="input-group-append">
+			<button type="submit" class="btn btn-primary">Add New Category</button>
+		</div>
+	</div>
+</form>
+
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<th scope="col">Name</th>
+			<th scope="col"></th>
+			<th scope="col"></th>
+		</tr>
+	</thead>
+	<tbody>
+		@{
+			@foreach (Category category in Model)
+			{
+				<tr>
+					<td>@category.Name</td>
+					<td>
+						<a class="btn btn-success btn-sm" asp-action="Edit" asp-route-userId="@category.Id">Edit</a>
+					</td>
+					<td>
+						<a class="btn btn-danger btn-sm" asp-action="delete" asp-route-userId="@category.Id">Delete</a>
+					</td>
+				</tr>
+			}
+		}
+	</tbody>
+</table>
