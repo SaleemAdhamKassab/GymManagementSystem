@@ -1,4 +1,4 @@
-﻿using GMS_BusinessLogic;
+﻿using GMS_BusinessLogic.Categories;
 using GMS_DataAccess;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -6,7 +6,7 @@ using System.Data;
 
 namespace GMS.Controllers
 {
-	public class CategoriesController : Controller
+    public class CategoriesController : Controller
 	{
 		private readonly Category _category = new();
 

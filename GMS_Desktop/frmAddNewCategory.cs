@@ -1,4 +1,4 @@
-﻿using GMS_BusinessLogic;
+﻿using GMS_BusinessLogic.Categories;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
