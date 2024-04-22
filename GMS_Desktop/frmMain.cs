@@ -15,5 +15,12 @@ namespace GMS_Desktop
             frmCategoriesList frm = new frmCategoriesList();
             frm.ShowDialog();
         }
+
+        private void productToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmProductsList frm = new frmProductsList();
+            frm.ShowDialog();
+
+        }
     }
 }

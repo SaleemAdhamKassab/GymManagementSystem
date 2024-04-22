@@ -1,6 +1,6 @@
 ﻿namespace GMS_Desktop
 {
-    partial class frmAddNewCategory
+    partial class frmAddEditCategory
     {
         /// <summary>
         /// Required designer variable.

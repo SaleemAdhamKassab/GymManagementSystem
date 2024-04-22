@@ -45,7 +45,7 @@ namespace GMS.Controllers
 
 			//await _roleManager.CreateAsync(newIdentityRole);
 
-			_category.add(name);
+			//_category.add(name);
 
 			return RedirectToAction(nameof(Index));
 		}
