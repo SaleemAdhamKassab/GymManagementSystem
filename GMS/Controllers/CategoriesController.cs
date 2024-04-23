@@ -41,7 +41,7 @@ namespace GMS.Controllers
 			Category categoryToChcek = Category.find(name);
 
 			if (categoryToChcek is not null)
-				return BadRequest($"The Category With Name {name} is already exsist");
+				return BadRequest($"The Category With Name {name} already exist");
 
 			Category category = new()
 			{
