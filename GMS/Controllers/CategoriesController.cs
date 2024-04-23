@@ -6,7 +6,7 @@ using System.Data;
 
 namespace GMS.Controllers
 {
-    public class CategoriesController : Controller
+	public class CategoriesController : Controller
 	{
 		private readonly Category _category = new();
 
@@ -30,24 +30,30 @@ namespace GMS.Controllers
 			return View(categories);
 		}
 
+
+		// Add
+		public async Task<IActionResult> add() => View(new Category());
+
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		public IActionResult add(string name)
+		public async Task<IActionResult> add(string name)
 		{
-			//if (_roleManager.RoleExistsAsync(roleName))
-			//	return BadRequest($"The Role {roleName} is already Exists");
+			Category categoryToChcek = Category.find(name);
 
-			//IdentityRole newIdentityRole = new()
-			//{
-			//	Name = roleName,
-			//	NormalizedName = roleName.ToUpper()
-			//};
+			if (categoryToChcek is not null)
+				return BadRequest($"The Category With Name {name} is already exsist");
 
-			//await _roleManager.CreateAsync(newIdentityRole);
+			Category category = new()
+			{
+				Name = name
+			};
 
-			//_category.add(name);
+			int createdId = _category.add(category);
 
-			return RedirectToAction(nameof(Index));
+			if (createdId > 0)
+				return RedirectToAction(nameof(Index));
+			else
+				return BadRequest($"Error in Adding Category: {name}");
 		}
 
 	}

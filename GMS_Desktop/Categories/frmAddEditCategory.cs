@@ -11,107 +11,109 @@ using System.Windows.Forms;
 
 namespace GMS_Desktop
 {
-    public partial class frmAddEditCategory : Form
-    {
-        private enum enMode { addNew = 1, update = 2 }
-        private enMode _mode = enMode.addNew;
+	public partial class frmAddEditCategory : Form
+	{
+		private enum enMode { addNew = 1, update = 2 }
+		private enMode _mode = enMode.addNew;
 
-        private Category _category;
+		private Category _category;
 
-        public frmAddEditCategory(Category category)
-        {
-            InitializeComponent();
-            _category = category;
-            _mode = enMode.update;
-        }
+		public frmAddEditCategory(Category category)
+		{
+			InitializeComponent();
+			_category = category;
+			_mode = enMode.update;
+		}
 
-        public frmAddEditCategory()
-        {
-            InitializeComponent();
-            _mode = enMode.addNew;
-        }
+		public frmAddEditCategory()
+		{
+			InitializeComponent();
+			_mode = enMode.addNew;
+		}
 
-        private void _ResetForm()
-        {
-            if (_mode == enMode.addNew)
-            {
-                lblTitle.Text = "Add New Category";
-                this.Text = "Add New Category";
-            }
-            else
-            {
-                lblTitle.Text = "Update Category";
-                this.Text = "Update Category";
-                txtName.Text = _category.Name;
-            }
-        }
+		private void _ResetForm()
+		{
+			if (_mode == enMode.addNew)
+			{
+				lblTitle.Text = "Add New Category";
+				this.Text = "Add New Category";
+			}
+			else
+			{
+				lblTitle.Text = "Update Category";
+				this.Text = "Update Category";
+				txtName.Text = _category.Name;
+			}
+		}
 
-        private void frmAddNewCategory_Load(object sender, EventArgs e)
-        {
-            _ResetForm();
-        }
+		private void frmAddNewCategory_Load(object sender, EventArgs e)
+		{
+			_ResetForm();
+		}
 
-        private void btnClose_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
+		private void btnClose_Click(object sender, EventArgs e)
+		{
+			this.Close();
+		}
 
-        private void btnSave_Click(object sender, EventArgs e)
-        {
-            switch (_mode)
-            {
-                case enMode.addNew:
+		private void btnSave_Click(object sender, EventArgs e)
+		{
+			switch (_mode)
+			{
+				case enMode.addNew:
 
-                    _category = new Category();
+					_category = new Category();
+					int insertedCategoryId = _category.add(_category);
 
-                    _category.Name = txtName.Text;
+					if (insertedCategoryId != -1)
+					{
+						_category.Id = insertedCategoryId;
+						_category.Name = txtName.Text;
 
-                    if (_category.add(_category) != -1)
-                    {
-                        lblID.Text = _category.Id.ToString();
+						lblID.Text = _category.Id.ToString();
 
-                        MessageBox.Show($"Category data saved successfully in the system with ID = {_category.Id}", "Success",
-                            MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
-                    else
-                        MessageBox.Show("Faild saved", "Error",
-                            MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    break;
+						MessageBox.Show($"Category data saved successfully in the system with ID = {_category.Id}", "Success",
+							MessageBoxButtons.OK, MessageBoxIcon.Information);
+					}
+					else
+						MessageBox.Show("Faild saved", "Error",
+							MessageBoxButtons.OK, MessageBoxIcon.Error);
+					break;
 
-                case enMode.update:
+				case enMode.update:
 
-                    _category.Name = txtName.Text;
-                    if (_category.update(_category))
-                    {
-                        lblID.Text = _category.Id.ToString();
+					_category.Name = txtName.Text;
+					if (_category.update(_category))
+					{
+						lblID.Text = _category.Id.ToString();
 
-                        MessageBox.Show($"Category data saved successfully in the system with ID = {_category.Id}", "Success",
-                            MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
-                    else
-                    {
-                        MessageBox.Show("This category not Found in the system!", "Error",
-                            MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                    break;
-        }
+						MessageBox.Show($"Category data saved successfully in the system with ID = {_category.Id}", "Success",
+							MessageBoxButtons.OK, MessageBoxIcon.Information);
+					}
+					else
+					{
+						MessageBox.Show("This category not Found in the system!", "Error",
+							MessageBoxButtons.OK, MessageBoxIcon.Error);
+					}
+					break;
+			}
 
-            this.Close();
-        }
+			this.Close();
+		}
 
-        private void txtName_Validating(object sender, CancelEventArgs e)
-        {
-            if (string.IsNullOrEmpty(txtName.Text))
-            {
-                btnSave.Enabled = false;
-                txtName.Focus();
-                errorProvider1.SetError(txtName, "You have to set the category's name.");
-            }
-            else
-            {
-                btnSave.Enabled = true;
-                errorProvider1.SetError(txtName, null);
-            }
-        }
-    }
+		private void txtName_Validating(object sender, CancelEventArgs e)
+		{
+			if (string.IsNullOrEmpty(txtName.Text))
+			{
+				btnSave.Enabled = false;
+				txtName.Focus();
+				errorProvider1.SetError(txtName, "You have to set the category's name.");
+			}
+			else
+			{
+				btnSave.Enabled = true;
+				errorProvider1.SetError(txtName, null);
+			}
+		}
+	}
 }

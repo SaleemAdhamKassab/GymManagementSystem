@@ -1,38 +1,43 @@
 ﻿@using GMS_BusinessLogic.Categories
-
 @model List<Category>
 
-<form method="post" asp-action="add">
-	<div class="input-group mb-3">
-		<input class="form-control" name="name" placeholder="Category Name..." required />
-		<div class="input-group-append">
-			<button type="submit" class="btn btn-primary">Add New Category</button>
+<h4 style=" text-align: center;">Categories</h4>
+<div class="justify-content-center">
+	<a class="btn btn-outline-primary mb-1" asp-action="add">Create New</a>
+	<form method="get" asp-action="search">
+		<div class="row">
+			<div class="input-group mb-3">
+				<input type="search" name="name" class="form-control input-text" placeholder="Search Categories....">
+				<div class="input-group-append">
+					<button type="submit" class="btn btn-outline-warning"><i class="fa fa-search"></i></button>
+				</div>
+			</div>
 		</div>
-	</div>
-</form>
-
+	</form>
+</div>
 <table class="table table-striped">
 	<thead>
 		<tr>
-			<th scope="col">Name</th>
-			<th scope="col"></th>
-			<th scope="col"></th>
+			<th>
+				Name
+			</th>
+			<th></th>
 		</tr>
 	</thead>
 	<tbody>
-		@{
-			@foreach (Category category in Model)
-			{
-				<tr>
-					<td>@category.Name</td>
-					<td>
-						<a class="btn btn-success btn-sm" asp-action="Edit" asp-route-userId="@category.Id">Edit</a>
-					</td>
-					<td>
-						<a class="btn btn-danger btn-sm" asp-action="delete" asp-route-userId="@category.Id">Delete</a>
-					</td>
-				</tr>
-			}
+		@foreach (Category category in Model)
+		{
+			<tr>
+				<td>
+					@Html.DisplayFor(modelItem => category.Name)
+				</td>
+				<td>
+					<div style="float:right">
+						<a asp-action="edit" asp-route-id="@category.Id"><i class="fa fa-edit" style="margin-right:10px; color:slateblue" title="Edit"></i></a>
+						<a asp-action="delete" asp-route-id="@category.Id"><i class="fa fa-trash" style="color:red" title="Delete"></i></a>
+					</div>
+				</td>
+			</tr>
 		}
 	</tbody>
 </table>
