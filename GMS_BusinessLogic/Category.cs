@@ -33,7 +33,7 @@ namespace GMS_BusinessLogic.Categories
             _Mode = enMode.update;
         }
 
-        public int add(Category obj) => this.Id = CategoryData.add(this.Name);
+		public int add(Category category)
 
         public DataTable get() => CategoryData.get();
         
