@@ -35,7 +35,7 @@ namespace GMS_BusinessLogic.Categories
 		public bool update(Category category)
 		{
 			if (category != null)
-				return CategoryData.update(this.Id, this.Name);
+				return CategoryData.update(category.Id, category.Name);
 
 			return false;
 		}

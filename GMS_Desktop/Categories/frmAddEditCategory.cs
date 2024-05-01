@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Linq;
 
 namespace GMS_Desktop
 {
@@ -62,17 +63,23 @@ namespace GMS_Desktop
 			{
 				case enMode.addNew:
 
+					if (Category.find(txtName.Text) != null)
+                    {
+						MessageBox.Show($"The Category With Name {txtName.Text} is already exist", "Error",
+							MessageBoxButtons.OK, MessageBoxIcon.Error);
+						return;
+					}	
+
 					_category = new Category();
-					int insertedCategoryId = _category.add(_category);
+                    _category.Name = txtName.Text;
+                    int insertedCategoryId = _category.add(_category);
 
 					if (insertedCategoryId != -1)
 					{
 						_category.Id = insertedCategoryId;
-						_category.Name = txtName.Text;
-
 						lblID.Text = _category.Id.ToString();
 
-						MessageBox.Show($"Category data saved successfully in the system with ID = {_category.Id}", "Success",
+						MessageBox.Show($"Category data saved successfully in the system with ID = {insertedCategoryId}", "Success",
 							MessageBoxButtons.OK, MessageBoxIcon.Information);
 					}
 					else

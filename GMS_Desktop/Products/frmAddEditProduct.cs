@@ -100,6 +100,13 @@ namespace GMS_Desktop
 
         private void _AddNew()
         {
+            if (Product.find(txtName.Text) != null)
+            {
+                MessageBox.Show($"The product with {txtName.Text} is already exists", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             _product = new Product();
             _product.Name = txtName.Text;
             _product.CategoryId = Category.find(cbCategories.Text).Id;
