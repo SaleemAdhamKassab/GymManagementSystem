@@ -1,60 +1,98 @@
-﻿using GMS_BusinessLogic.Categories;
-using GMS_DataAccess;
-using Microsoft.AspNetCore.Identity;
+﻿using GMS.Mapper;
+using GMS_BusinessLogic.Categories;
 using Microsoft.AspNetCore.Mvc;
-using System.Data;
 
 namespace GMS.Controllers
 {
-	public class CategoriesController : Controller
-	{
-		private readonly Category _category = new();
+    public class CategoriesController : Controller
+    {
+        private readonly Category _categoryRepo = new();
 
-		public IActionResult Index()
-		{
-			DataTable categoriesDataTable = _category.get();
+        public IActionResult Index(string categoryName)
+        {
+            List<Category> categories = MapProfile.dtToCategories(_categoryRepo.get());
+            return View(categories);
+        }
 
-			List<Category> categories = [];
+        // Add
+        public IActionResult add() => View(new Category());
 
-			foreach (DataRow dataRow in categoriesDataTable.Rows)
-			{
-				Category category = new()
-				{
-					Id = int.Parse(dataRow["Id"].ToString()),
-					Name = dataRow["Name"].ToString()
-				};
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult add(string name)
+        {
+            Category categoryToChcek = Category.find(name);
 
-				categories.Add(category);
-			}
+            if (categoryToChcek is not null)
+                return BadRequest($"The Category With Name {name} already exist");
 
-			return View(categories);
-		}
+            Category category = new()
+            {
+                Name = name
+            };
 
+            int createdId = _categoryRepo.add(category);
 
-		// Add
-		public async Task<IActionResult> add() => View(new Category());
+            if (createdId > 0)
+                return RedirectToAction(nameof(Index));
+            else
+                return BadRequest($"Error in Adding Category: {name}");
+        }
 
-		[HttpPost]
-		[ValidateAntiForgeryToken]
-		public async Task<IActionResult> add(string name)
-		{
-			Category categoryToChcek = Category.find(name);
+        //Edit
+        public IActionResult edit(int id)
+        {
+            Category category = Category.find(id);
+            if (category is null)
+                return NotFound($"Invalid Category Id: {id}");
 
-			if (categoryToChcek is not null)
-				return BadRequest($"The Category With Name {name} already exist");
+            return View(category);
+        }
 
-			Category category = new()
-			{
-				Name = name
-			};
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(Category categoryToUpdate)
+        {
+            if (categoryToUpdate is null)
+                return NotFound($"Empty Category");
 
-			int createdId = _category.add(category);
+            Category category = Category.find(categoryToUpdate.Id);
 
-			if (createdId > 0)
-				return RedirectToAction(nameof(Index));
-			else
-				return BadRequest($"Error in Adding Category: {name}");
-		}
+            if (categoryToUpdate.Name.ToLower() == category.Name.ToLower())
+                return BadRequest($"The Category With Name {categoryToUpdate.Name} already exist");
 
-	}
+            try
+            {
+
+                _categoryRepo.update(categoryToUpdate);
+                return RedirectToAction(nameof(Index));
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
+        //Delete
+        public async Task<IActionResult> Delete(int id)
+        {
+            Category category = Category.find(id);
+
+            if (category is null)
+                return NotFound($"Invalid Category Id: {id}");
+
+            return View(category);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Delete(Category category)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest("Invalid Category");
+
+            _categoryRepo.delete(category.Id);
+            return RedirectToAction(nameof(Index));
+        }
+    }
 }
