@@ -60,6 +60,6 @@ namespace GMS_BusinessLogic.Categories
 				return null;
 		}
 
-		public bool delete(int obj) => CategoryData.delete(this.Id);
+		public bool delete(int id) => CategoryData.delete(id);
 	}
 }
