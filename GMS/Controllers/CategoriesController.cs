@@ -10,7 +10,7 @@ namespace GMS.Controllers
 
         public IActionResult Index(string categoryName)
         {
-            List<Category> categories = MapProfile.dtToCategories(_categoryRepo.get());
+            List<Category> categories = MapProfile.dtToCategories(_categoryRepo.get(categoryName));
             return View(categories);
         }
 
@@ -21,9 +21,9 @@ namespace GMS.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult add(string name)
         {
-            Category categoryToChcek = Category.find(name);
+            Category categoryToCheck = Category.find(name);
 
-            if (categoryToChcek is not null)
+            if (categoryToCheck is not null)
                 return BadRequest($"The Category With Name {name} already exist");
 
             Category category = new()
@@ -51,15 +51,12 @@ namespace GMS.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Category categoryToUpdate)
+        public IActionResult edit(Category categoryToUpdate)
         {
             if (categoryToUpdate is null)
                 return NotFound($"Empty Category");
 
             Category category = Category.find(categoryToUpdate.Id);
-
-            if (categoryToUpdate.Name.ToLower() == category.Name.ToLower())
-                return BadRequest($"The Category With Name {categoryToUpdate.Name} already exist");
 
             try
             {
@@ -74,7 +71,7 @@ namespace GMS.Controllers
         }
 
         //Delete
-        public async Task<IActionResult> Delete(int id)
+        public IActionResult delete(int id)
         {
             Category category = Category.find(id);
 
@@ -86,7 +83,7 @@ namespace GMS.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Delete(Category category)
+        public IActionResult delete(Category category)
         {
             if (!ModelState.IsValid)
                 return BadRequest("Invalid Category");

@@ -10,7 +10,7 @@
             <input type="hidden" asp-for="Id" />
             <div class="form-group">
                 <label asp-for="Name" class="control-label mb-2">Category Name</label>
-                <input asp-for="Name" class="form-control" required />
+                <input asp-for="Name" value="@Model.Name" class="form-control" required />
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
             <br />
@@ -19,10 +19,6 @@
             </div>
         </form>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {

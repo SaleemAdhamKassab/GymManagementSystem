@@ -1,0 +1,56 @@
+﻿@using GMS_BusinessLogic
+
+@model List<Product>
+
+<h4 style=" text-align: center;">Products</h4>
+<div class="justify-content-center">
+	<a class="btn btn-outline-primary mb-1" asp-action="add">Create New</a>
+	<form method="get" asp-action="Index">
+		<div class="row">
+			<div class="input-group mb-3">
+				<input type="search" name="productName" class="form-control input-text" placeholder="Search Products....">
+				<div class="input-group-append">
+					<button type="submit" class="btn btn-outline-warning"><i class="fa fa-search"></i></button>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<th>
+				Name
+			</th>
+			<th>
+				Quantity
+			</th>
+			<th>
+				Category
+			</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (Product product in Model)
+		{
+			<tr>
+				<td>
+					@Html.DisplayFor(modelItem => product.Name)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => product.Quantity)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => product.CategoryId)
+				</td>
+				<td>
+					<div style="float:right">
+						<a asp-action="edit" asp-route-id="@product.Id"><i class="fa fa-edit" style="margin-right:10px; color:slateblue" title="Edit"></i></a>
+						<a asp-action="delete" asp-route-id="@product.Id"><i class="fa fa-trash" style="color:red" title="Delete"></i></a>
+					</div>
+				</td>
+			</tr>
+		}
+	</tbody>
+</table>

@@ -24,7 +24,7 @@ namespace GMS_Desktop
         {
             Category category = new Category();
             
-            _dtCategoriesList = category.get();
+            _dtCategoriesList = category.get(string.Empty);
 
             dgvCategoriesList.DataSource = _dtCategoriesList.DefaultView.ToTable(false, "Name");
             lblNumberOfCategories.Text = dgvCategoriesList.Rows.Count.ToString();

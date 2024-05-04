@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Data;
 using GMS_DataAccess;
 
 namespace GMS_BusinessLogic
@@ -13,10 +8,10 @@ namespace GMS_BusinessLogic
         enum enMode { addNew = 1, update = 2 }
         enMode _Mode = enMode.addNew;
 
-        public int Id {  get; set; }
+        public int Id { get; set; }
         public string Name { get; set; }
-        public short Quantity {  get; set; }
-        public int CategoryId {  get; set; }
+        public int Quantity { get; set; }
+        public int CategoryId { get; set; }
 
         public Product()
         {
@@ -57,10 +52,10 @@ namespace GMS_BusinessLogic
                 return null;
         }
 
-        public int add(Product product) => this.Id = ProductData.add(this.Name, this.Quantity, this.CategoryId);
-        public DataTable get() => ProductData.get();
-        
-        public bool update(Product product) => ProductData.update(this.Id, this.Name, this.Quantity, this.CategoryId);
+        public int add(Product product) => this.Id = ProductData.add(product.Name, product.Quantity,product.CategoryId);
+        public DataTable get(string searchString) => ProductData.get(searchString);
+
+        public bool update(Product product) => ProductData.update(product.Id, product.Name, product.Quantity, product.CategoryId);
         public bool delete(int id) => ProductData.delete(id);
     }
 }

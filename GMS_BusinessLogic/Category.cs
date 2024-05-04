@@ -30,7 +30,7 @@ namespace GMS_BusinessLogic.Categories
 
 		public int add(Category category) => CategoryData.add(category.Name);
 
-		public DataTable get() => CategoryData.get();
+		public DataTable get(string searchString) => CategoryData.get(searchString);
 
 		public bool update(Category category)
 		{

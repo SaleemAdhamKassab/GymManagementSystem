@@ -1,0 +1,34 @@
+﻿@using GMS_BusinessLogic
+@model Product
+
+@{
+	ViewData["Title"] = "Delete";
+}
+<h4 style=" text-align: center;">Delete Product</h4>
+<hr />
+
+<h5>Are you sure you want to delete <span style="color:red"><b>(@Model.Name)</b></span> Product?</h5>
+<hr />
+<div>
+	<dl class="row">
+
+		<dt class="col-sm-2">
+			@Html.DisplayNameFor(model => model.Name)
+		</dt>
+		<dd class="col-sm-10">
+			@Html.DisplayFor(model => model.Name)
+		</dd>
+
+		<dt class="col-sm-2">
+			@Html.DisplayNameFor(model => model.Quantity)
+		</dt>
+		<dd class="col-sm-10">
+			@Html.DisplayFor(model => model.Quantity)
+		</dd>
+	</dl>
+
+	<form asp-action="Delete">
+		<input type="hidden" asp-for="Id" />
+		<input type="submit" value="Delete" class="btn btn-danger mb-2" />
+	</form>
+</div>

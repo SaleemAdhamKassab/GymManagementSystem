@@ -62,7 +62,7 @@ namespace GMS_Desktop
         private void _FillComboBoxWithCategories()
         {
             Category category = new Category();
-            DataTable dt = category.get();
+            DataTable dt = category.get(string.Empty);
 
             foreach (DataRow row in dt.Rows)
             {

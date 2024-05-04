@@ -26,7 +26,7 @@ namespace GMS_Desktop
         {
             Product product = new Product();
 
-            _AllproductsList = product.get();
+            _AllproductsList = product.get(string.Empty);
             _productsList = _AllproductsList.DefaultView.ToTable(false, "Name", "Quantity");
 
             dgvProductsList.DataSource = _productsList;
