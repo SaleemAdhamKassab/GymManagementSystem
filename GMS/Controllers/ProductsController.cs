@@ -1,6 +1,7 @@
 ﻿using GMS.Mapper;
 using GMS_BusinessLogic;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 
 namespace GMS.Controllers
 {
@@ -21,27 +22,29 @@ namespace GMS.Controllers
 		[ValidateAntiForgeryToken]
 		public IActionResult add(Product product)
 		{
-			Product productToCheck = Product.find(product.Name);
+			Product productToCheck = Product.find(product.Name.Trim().ToLower());
 
 			if (productToCheck is not null)
 				return BadRequest($"The Product With Name {product.Name} already exist");
-
-			int createdId = _productRepo.add(product);
-
-			if (createdId > 0)
+			try
+			{
+				int createdId = _productRepo.add(product);
 				return RedirectToAction(nameof(Index));
-			else
-				return BadRequest($"Error in Adding Product: {product.Name}");
+			}
+			catch (Exception e)
+			{
+				return BadRequest(e.Message);
+			}
 		}
 
 		//Edit
 		public IActionResult edit(int id)
 		{
-			Product Product = Product.find(id);
-			if (Product is null)
+			Product product = Product.find(id);
+			if (product is null)
 				return NotFound($"Invalid Product Id: {id}");
 
-			return View(Product);
+			return View(product);
 		}
 
 		[HttpPost]
@@ -51,13 +54,18 @@ namespace GMS.Controllers
 			if (product is null)
 				return NotFound($"Empty Product");
 
+			Product productToCheck = Product.find(product.Name.Trim().ToLower());
+
+			if (productToCheck is not null && productToCheck.Id != product.Id)
+				return BadRequest($"The Product with name {product.Name} already exist");
+
 			Product productToUpdate = Product.find(product.Id);
+			productToUpdate.Name = product.Name;
+			productToUpdate.Quantity = product.Quantity;
 
 			try
 			{
-				productToUpdate = MapProfile.product(productToUpdate, product);
 				_productRepo.update(productToUpdate);
-
 				return RedirectToAction(nameof(Index));
 			}
 			catch (Exception e)
@@ -70,10 +78,8 @@ namespace GMS.Controllers
 		public IActionResult delete(int id)
 		{
 			Product product = Product.find(id);
-
 			if (product is null)
 				return NotFound($"Invalid Product Id: {id}");
-
 			return View(product);
 		}
 
@@ -81,11 +87,18 @@ namespace GMS.Controllers
 		[ValidateAntiForgeryToken]
 		public IActionResult Delete(Product product)
 		{
-			if (!ModelState.IsValid)
-				return BadRequest("Invalid Product");
+			if (product.Id == 0)
+				return BadRequest("Invalid Product Id");
 
-			_productRepo.delete(product.Id);
-			return RedirectToAction(nameof(Index));
+			try
+			{
+				_productRepo.delete(product.Id);
+				return RedirectToAction(nameof(Index));
+			}
+			catch (Exception e)
+			{
+				return BadRequest(e.Message);
+			}
 		}
 	}
 }

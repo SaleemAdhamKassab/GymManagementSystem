@@ -4,92 +4,106 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace GMS.Controllers
 {
-    public class CategoriesController : Controller
-    {
-        private readonly Category _categoryRepo = new();
+	public class CategoriesController : Controller
+	{
+		private readonly Category _categoryRepo = new();
 
-        public IActionResult Index(string categoryName)
-        {
-            List<Category> categories = MapProfile.dtToCategories(_categoryRepo.get(categoryName));
-            return View(categories);
-        }
+		public IActionResult Index(string categoryName)
+		{
+			List<Category> categories = MapProfile.dtToCategories(_categoryRepo.get(categoryName));
+			return View(categories);
+		}
 
-        // Add
-        public IActionResult add() => View(new Category());
+		// Add
+		public IActionResult add() => View(new Category());
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult add(string name)
-        {
-            Category categoryToCheck = Category.find(name);
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public IActionResult add(string name)
+		{
+			Category categoryToCheck = Category.find(name.Trim().ToLower());
 
-            if (categoryToCheck is not null)
-                return BadRequest($"The Category With Name {name} already exist");
+			if (categoryToCheck is not null)
+				return BadRequest($"The Category With Name {name} already exist");
 
-            Category category = new()
-            {
-                Name = name
-            };
+			Category category = new()
+			{
+				Name = name
+			};
 
-            int createdId = _categoryRepo.add(category);
+			try
+			{
+				int createdId = _categoryRepo.add(category);
+				return RedirectToAction(nameof(Index));
+			}
+			catch (Exception e)
+			{
+				return BadRequest(e.Message);
+			}
+		}
 
-            if (createdId > 0)
-                return RedirectToAction(nameof(Index));
-            else
-                return BadRequest($"Error in Adding Category: {name}");
-        }
+		//Edit
+		public IActionResult edit(int id)
+		{
+			Category category = Category.find(id);
+			if (category is null)
+				return NotFound($"Invalid Category Id: {id}");
 
-        //Edit
-        public IActionResult edit(int id)
-        {
-            Category category = Category.find(id);
-            if (category is null)
-                return NotFound($"Invalid Category Id: {id}");
+			return View(category);
+		}
 
-            return View(category);
-        }
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public IActionResult edit(Category category)
+		{
+			if (category is null)
+				return NotFound($"Empty Category");
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult edit(Category categoryToUpdate)
-        {
-            if (categoryToUpdate is null)
-                return NotFound($"Empty Category");
+			Category categoryToUpdate = Category.find(category.Id);
 
-            Category category = Category.find(categoryToUpdate.Id);
+			if (Category.find(category.Name).Name.Trim().ToLower() == category.Name.Trim().ToLower())
+				return BadRequest($"The Category with name {category.Name} already exist");
 
-            try
-            {
+			categoryToUpdate.Name = category.Name;
 
-                _categoryRepo.update(categoryToUpdate);
-                return RedirectToAction(nameof(Index));
-            }
-            catch (Exception e)
-            {
-                return BadRequest(e.Message);
-            }
-        }
+			try
+			{
+				_categoryRepo.update(categoryToUpdate);
+				return RedirectToAction(nameof(Index));
+			}
+			catch (Exception e)
+			{
+				return BadRequest(e.Message);
+			}
+		}
 
-        //Delete
-        public IActionResult delete(int id)
-        {
-            Category category = Category.find(id);
+		//Delete
+		public IActionResult delete(int id)
+		{
+			Category category = Category.find(id);
 
-            if (category is null)
-                return NotFound($"Invalid Category Id: {id}");
+			if (category is null)
+				return NotFound($"Invalid Category Id: {id}");
 
-            return View(category);
-        }
+			return View(category);
+		}
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult delete(Category category)
-        {
-            if (!ModelState.IsValid)
-                return BadRequest("Invalid Category");
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public IActionResult delete(Category category)
+		{
+			if (!ModelState.IsValid)
+				return BadRequest("Invalid Category");
 
-            _categoryRepo.delete(category.Id);
-            return RedirectToAction(nameof(Index));
-        }
-    }
+			try
+			{
+				_categoryRepo.delete(category.Id);
+				return RedirectToAction(nameof(Index));
+			}
+			catch (Exception e)
+			{
+				return BadRequest(e.Message);
+			}
+		}
+	}
 }

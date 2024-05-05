@@ -23,7 +23,7 @@
 				Name
 			</th>
 			<th>
-				Quantity
+				Available Quantity
 			</th>
 			<th>
 				Category
@@ -42,7 +42,7 @@
 					@Html.DisplayFor(modelItem => product.Quantity)
 				</td>
 				<td>
-					@Html.DisplayFor(modelItem => product.CategoryId)
+					@Html.DisplayFor(modelItem => product.Category.Name)
 				</td>
 				<td>
 					<div style="float:right">

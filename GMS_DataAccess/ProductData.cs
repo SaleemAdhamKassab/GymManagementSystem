@@ -1,26 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GMS_DataAccess
 {
 	public class ProductData
 	{
-		public static bool getProductDataByID(int id, ref string name, ref short quantity, ref int categoryId)
+		public static bool getProductDataByID(int id, ref string name, ref int quantity, ref int categoryId)
 		{
 			bool isFound = false;
 
 			SqlConnection connection = new SqlConnection(DataAccessSettings.ConnectionString);
 
-			string query = $"SELECT * FROM Products WHERE Id = @id";
-
+			string query = $"SELECT * FROM Products WHERE Id = {id}";
 			SqlCommand command = new SqlCommand(query, connection);
-			command.Parameters.AddWithValue("@Id", id);
-
 			try
 			{
 				connection.Open();
@@ -31,7 +23,7 @@ namespace GMS_DataAccess
 				{
 					isFound = true;
 					name = (string)reader["Name"];
-					quantity = (short)reader["Quantity"];
+					quantity = (int)reader["Quantity"];
 					categoryId = (int)reader["CategoryId"];
 				}
 				else
@@ -52,13 +44,13 @@ namespace GMS_DataAccess
 			return isFound;
 		}
 
-		public static bool getProductDataByName(ref int id, string name, ref short quantity, ref int categoryId)
+		public static bool getProductDataByName(ref int id, string name, ref int quantity, ref int categoryId)
 		{
 			bool isFound = false;
 
-			SqlConnection connection = new SqlConnection(DataAccessSettings.ConnectionString);
+			SqlConnection connection = new (DataAccessSettings.ConnectionString);
 
-			string query = "SELECT * FROM Products WHERE Name = @name";
+			string query = "SELECT * FROM Products WHERE lower(Name) = @name";
 
 			SqlCommand command = new SqlCommand(query, connection);
 			command.Parameters.AddWithValue("@Name", name);
@@ -73,7 +65,7 @@ namespace GMS_DataAccess
 				{
 					isFound = true;
 					id = (int)reader["Id"];
-					quantity = (short)reader["Quantity"];
+					quantity = (int)reader["Quantity"];
 					categoryId = (int)reader["CategoryId"];
 				}
 				else
@@ -99,7 +91,7 @@ namespace GMS_DataAccess
 			if (!string.IsNullOrEmpty(searchString))
 				searchString = searchString.Trim().ToLower();
 
-			return CRUD.getUsingDateTable($"SELECT * FROM Products where lower(name) like '%{searchString}' order by name");
+			return CRUD.getUsingDateTable($"SELECT * FROM Products where lower(name) like '%{searchString}%' order by name");
 		}
 		public static int add(string name, int quantity, int categoryId) =>
 		CRUD.add($"INSERT INTO Products (Name, Quantity, CategoryId) VALUES ('{name.Trim()}', {quantity}, {categoryId}); SELECT SCOPE_IDENTITY();");

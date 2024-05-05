@@ -29,7 +29,6 @@ namespace GMS.Mapper
 		public static List<Product> dtToProducts(DataTable productsDataTable)
 		{
 			List<Product> products = [];
-
 			foreach (DataRow dataRow in productsDataTable.Rows)
 			{
 				Product product = new()
@@ -37,9 +36,9 @@ namespace GMS.Mapper
 					Id = int.Parse(dataRow["Id"].ToString()),
 					Name = dataRow["Name"].ToString(),
 					Quantity = int.Parse(dataRow["Quantity"].ToString()),
-					CategoryId = int.Parse(dataRow["CategoryId"].ToString())
+					CategoryId = int.Parse(dataRow["CategoryId"].ToString()),
+					Category = Category.find(int.Parse(dataRow["CategoryId"].ToString()))
 				};
-
 				products.Add(product);
 			}
 
