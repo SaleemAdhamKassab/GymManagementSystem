@@ -1,4 +1,5 @@
 ﻿using System.Data;
+using GMS_DataAccess;
 
 namespace GMS_BusinessLogic
 {
@@ -19,11 +20,12 @@ namespace GMS_BusinessLogic
 		{
 			throw new NotImplementedException();
 		}
-		public int add(Order order)
-		{
-			throw new NotImplementedException();
-		}
-		public bool update(Order order)
+        public int add(Order order)
+        {
+            return this.Id = OrderData.add(order.Date, order.SupplierId, order.UserId);
+        }
+
+        public bool update(Order order)
 		{
 			throw new NotImplementedException();
 		}
