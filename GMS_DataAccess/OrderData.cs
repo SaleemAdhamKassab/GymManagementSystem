@@ -22,18 +22,18 @@ namespace GMS_DataAccess
 				productQuantity = orderProducts.ElementAt(i).Item3;
 
 				//2) insert into OrderProducts
-				query = $"INSERT INTO OrderProducts (ProductID,Price,Quantity) VALUES ({productId}, {productPrice}, {productQuantity}, {orderId}) ";
+				query = $"INSERT INTO OrderProducts (ProductId,Price,Quantity, OrderId) VALUES ({productId}, {productPrice}, {productQuantity}, {orderId}) ";
 				orderTotalAmount += productPrice * productQuantity;
 				CRUD.add(query);
 			}
 
-			//2) Update Orders
+			//3) Update Orders
 			query = $"UPDATE Orders SET TotalAmount = {orderTotalAmount}, Discount = {discount} where id = {orderId}";
 			CRUD.executeNonQuery(query);
 
-			////2) Update Product Quantity
-			//query = $"UPDATE Products SET Quantity = {-1} where id = ";
-			//CRUD.executeNonQuery(query);
+			// 4) Update Product Quantity
+			query = $"UPDATE Products SET Quantity = {-1} where id = ";
+			CRUD.executeNonQuery(query);
 
 			return 0;
 		}
