@@ -1,4 +1,7 @@
-﻿namespace GMS_BusinessLogic
+﻿using GMS_DataAccess;
+using System.Data;
+
+namespace GMS_BusinessLogic
 {
 	public class Supplier
 	{
@@ -6,6 +9,6 @@
 		public int PersonId { get; set; }
 		public Person Person { get; set; }
 
-		public static List<string> get() => ["supplier1", "supplier2"];
+		public static DataTable get() => SupplierData.get();
 	}
 }

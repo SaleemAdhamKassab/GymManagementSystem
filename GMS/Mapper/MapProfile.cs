@@ -73,5 +73,24 @@ namespace GMS.Mapper
 
 			return users;
 		}
+
+		///////////////////////////// Supplier /////////////////////////////
+		public static List<Supplier> dtToSuppliers(DataTable supplierDataTable)
+		{
+			List<Supplier> suppliers = [];
+
+			foreach (DataRow dataRow in supplierDataTable.Rows)
+			{
+				Supplier supplier = new()
+				{
+					Id = int.Parse(dataRow["Id"].ToString()),
+					PersonId = int.Parse(dataRow["PersonId"].ToString()),
+					Person = null
+				};
+				suppliers.Add(supplier);
+			}
+
+			return suppliers;
+		}
 	}
 }

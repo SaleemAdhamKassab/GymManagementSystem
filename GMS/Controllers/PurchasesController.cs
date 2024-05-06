@@ -2,7 +2,6 @@
 using GMS_BusinessLogic;
 using GMS_BusinessLogic.Categories;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
 
 namespace GMS.Controllers
 {
@@ -24,13 +23,22 @@ namespace GMS.Controllers
 		[ValidateAntiForgeryToken]
 		public IActionResult add(IFormCollection purchaseInvoiceForm)
 		{
-
 			List<(string, string)> fields = [];
+			List<(int, decimal, int)> orderProducts = [];
+			Order order = new();
+
 
 			foreach (var item in Request.Form)
 			{
 				fields.Add((item.Key, item.Value));
+
+
 			}
+
+			order.Date = DateTime.Parse(fields.ElementAt(0).Item2);
+			order.SupplierId = int.Parse(fields.ElementAt(2).Item2);
+
+
 
 			try
 			{
