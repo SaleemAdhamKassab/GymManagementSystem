@@ -1,0 +1,43 @@
+﻿@* @using GMS_BusinessLogic.Categories
+@model List<Category> *@
+
+<h4 style=" text-align: center;">Purchases</h4>
+<div class="justify-content-center">
+	<a class="btn btn-outline-primary mb-1" asp-action="add">Create Purchase Invoice</a>
+	@* <form method="get" asp-action="Index">
+		<div class="row">
+			<div class="input-group mb-3">
+				<input type="search" name="categoryName" class="form-control input-text" placeholder="Search Categories....">
+				<div class="input-group-append">
+					<button type="submit" class="btn btn-outline-warning"><i class="fa fa-search"></i></button>
+				</div>
+			</div>
+		</div>
+	</form> *@
+</div>
+@*<table class="table table-striped">
+	<thead>
+		<tr>
+			<th>
+				Name
+			</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (Category category in Model)
+		{
+			<tr>
+				<td>
+					@Html.DisplayFor(modelItem => category.Name)
+				</td>
+				<td>
+					<div style="float:right">
+						<a asp-action="edit" asp-route-id="@category.Id"><i class="fa fa-edit" style="margin-right:10px; color:slateblue" title="Edit"></i></a>
+						<a asp-action="delete" asp-route-id="@category.Id"><i class="fa fa-trash" style="color:red" title="Delete"></i></a>
+					</div>
+				</td>
+			</tr>
+		}
+	</tbody>
+</table> *@

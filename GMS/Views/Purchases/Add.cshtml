@@ -1,0 +1,67 @@
+﻿@using GMS_BusinessLogic;
+@model Order;
+
+<h4 style=" text-align: center;">Create Purchase Invoice</h4>
+<div class="row">
+	<div class="col-md-12">
+		<form asp-action="add">
+			<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+			<div>
+				<input asp-for="Date" type="datetime-local" class="form-control" />
+			</div>
+			<br />
+
+			<div class="form-group mb-2">
+				<select class="form-select" asp-for="SupplierId" asp-items="@(new SelectList(Supplier.get()))" required></select>
+			</div>
+			<br />
+
+			@* Dynamic Form Inputs *@
+			@* https://learn.microsoft.com/en-us/answers/questions/598813/dynamic-generation-of-form-fields-in-razor-pages *@
+			<div>
+				<button id="addRow" type="button" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;Add Product</button>
+				<div id="newRow">
+					<input type="hidden" id="total" value="0" />
+				</div>
+			</div>
+			<br />
+
+			<div class="form-group">
+				<input type="submit" value="Purchase" class="btn btn-primary" style="width:10%" />
+			</div>
+		</form>
+	</div>
+</div>
+
+@section Scripts {
+	@{
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	}
+
+	<script type="text/javascript">
+		$("#addRow").click(function () {
+			var rowCount = parseInt($("#total").val());
+			rowCount++;
+			$("#total").val(rowCount);
+			var html = '<br />';
+			html += '<div id="inputRow">';
+			html += '<input type="number" class="d-inline-flex form-control" style="margin-right:5px;width:20%" name="[' + (rowCount - 1) + '].productId" placeholder="Product Id" required/>';
+			html += '<input type="number" class="d-inline-flex form-control" style="margin-right:5px;width:20%"  name="[' + (rowCount - 1) + '].price" placeholder="Price" min="1" required/>';
+			html += '<input type="number" class="d-inline-flex form-control" style="margin-right:5px;width:20%"  name="[' + (rowCount - 1) + '].quantity"  placeholder="Quantity" min="1" required/>';
+
+			html += '<button id="removeRow" type="button" class="btn btn-danger btn-sm">Delete</button>';
+			html += '</div>';
+
+			$('#newRow').append(html);
+		});
+
+		$(document).on('click', '#removeRow', function () {
+			var rowCount = parseInt($("#total").val());
+			rowCount--;
+			$("#total").val(rowCount);
+			$(this).closest('#inputRow').remove();
+		});
+
+	</script>
+}

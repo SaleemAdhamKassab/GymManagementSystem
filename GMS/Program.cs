@@ -14,6 +14,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(e => e.UseSqlServer(builder.
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddScoped<IAuthorizationHandler, AdminHandler>();
 builder.Services.Configure<IdentityOptions>(e => e.Lockout.MaxFailedAccessAttempts = 3);
+builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
 
 builder.Services.AddAuthorization(e =>
 {
