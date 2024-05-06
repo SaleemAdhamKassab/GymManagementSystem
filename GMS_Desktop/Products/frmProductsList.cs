@@ -37,7 +37,7 @@ namespace GMS_Desktop
                 dgvProductsList.Columns[0].HeaderText = "Product Name";
                 dgvProductsList.Columns[0].Width = 250;
 
-                dgvProductsList.Columns[1].HeaderText = "Product quantity";
+                dgvProductsList.Columns[1].HeaderText = "Available quantity";
                 dgvProductsList.Columns[1].Width = 140;
             }
         }
