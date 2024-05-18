@@ -59,6 +59,7 @@ namespace GMS_BusinessLogic
 
 		public int add(Product product) => this.Id = ProductData.add(product.Name, product.Quantity, product.CategoryId);
 		public DataTable get(string searchString) => ProductData.get(searchString);
+		public static DataTable get() => ProductData.get();
 
 		public bool update(Product product) => ProductData.update(product.Id, product.Name, product.Quantity, product.CategoryId);
 		public bool delete(int id) => ProductData.delete(id);

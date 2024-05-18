@@ -15,6 +15,7 @@ namespace GMS_Desktop
     public partial class frmCategoriesList : Form
     {
         private DataTable _dtCategoriesList;
+
         public frmCategoriesList()
         {
             InitializeComponent();
@@ -23,7 +24,7 @@ namespace GMS_Desktop
         private void frmCategoriesList_Load(object sender, EventArgs e)
         {
             Category category = new Category();
-            
+
             _dtCategoriesList = category.get(string.Empty);
 
             dgvCategoriesList.DataSource = _dtCategoriesList.DefaultView.ToTable(false, "Name");
@@ -33,6 +34,8 @@ namespace GMS_Desktop
             {
                 dgvCategoriesList.Columns[0].HeaderText = "Category Name";
                 dgvCategoriesList.Columns[0].Width = 250;
+
+
             }
         }
 
@@ -100,5 +103,6 @@ namespace GMS_Desktop
                     MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
+
     }
 }

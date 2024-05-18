@@ -22,5 +22,11 @@ namespace GMS_Desktop
             frm.ShowDialog();
 
         }
+
+        private void purchasesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmPurchases frm = new frmPurchases();
+            frm.ShowDialog();
+        }
     }
 }

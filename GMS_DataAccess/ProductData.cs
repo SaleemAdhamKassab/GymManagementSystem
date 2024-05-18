@@ -93,6 +93,7 @@ namespace GMS_DataAccess
 
 			return CRUD.getUsingDateTable($"SELECT * FROM Products where lower(name) like '%{searchString}%' order by name");
 		}
+		public static DataTable get() => CRUD.getUsingDateTable("SELECT * FROM Products");
 		public static int add(string name, int quantity, int categoryId) =>
 		CRUD.add($"INSERT INTO Products (Name, Quantity, CategoryId) VALUES ('{name.Trim()}', {quantity}, {categoryId}); SELECT SCOPE_IDENTITY();");
 		public static bool update(int id, string name, int quantity, int categoryId) =>

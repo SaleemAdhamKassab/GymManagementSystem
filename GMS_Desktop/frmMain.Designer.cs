@@ -31,12 +31,14 @@
             menuStrip1 = new MenuStrip();
             categoriesToolStripMenuItem = new ToolStripMenuItem();
             productToolStripMenuItem = new ToolStripMenuItem();
+            purchasesToolStripMenuItem = new ToolStripMenuItem();
+            label1 = new Label();
             menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
             // menuStrip1
             // 
-            menuStrip1.Items.AddRange(new ToolStripItem[] { categoriesToolStripMenuItem, productToolStripMenuItem });
+            menuStrip1.Items.AddRange(new ToolStripItem[] { categoriesToolStripMenuItem, productToolStripMenuItem, purchasesToolStripMenuItem });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
             menuStrip1.Size = new Size(1029, 28);
@@ -61,11 +63,30 @@
             productToolStripMenuItem.Text = "Product";
             productToolStripMenuItem.Click += productToolStripMenuItem_Click;
             // 
+            // purchasesToolStripMenuItem
+            // 
+            purchasesToolStripMenuItem.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            purchasesToolStripMenuItem.Name = "purchasesToolStripMenuItem";
+            purchasesToolStripMenuItem.Size = new Size(96, 24);
+            purchasesToolStripMenuItem.Text = "Purchases";
+            purchasesToolStripMenuItem.Click += purchasesToolStripMenuItem_Click;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Font = new Font("Microsoft Sans Serif", 24F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label1.Location = new Point(566, 50);
+            label1.Name = "label1";
+            label1.Size = new Size(150, 37);
+            label1.TabIndex = 1;
+            label1.Text = "Welcome";
+            // 
             // frmMain
             // 
             AutoScaleDimensions = new SizeF(9F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1029, 600);
+            Controls.Add(label1);
             Controls.Add(menuStrip1);
             Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             MainMenuStrip = menuStrip1;
@@ -85,5 +106,7 @@
         private MenuStrip menuStrip1;
         private ToolStripMenuItem categoriesToolStripMenuItem;
         private ToolStripMenuItem productToolStripMenuItem;
+        private Label label1;
+        private ToolStripMenuItem purchasesToolStripMenuItem;
     }
 }
