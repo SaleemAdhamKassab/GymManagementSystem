@@ -3,7 +3,7 @@ using GMS_DataAccess;
 
 namespace GMS_BusinessLogic
 {
-	public class Order : IGmsRepo<Order>
+	public class Order
 	{
 		public int Id { get; set; }
 		public DateTime Date { get; set; }
@@ -15,32 +15,12 @@ namespace GMS_BusinessLogic
 		public Supplier Supplier { get; set; }
 		public List<OrderProduct> OrderProducts { get; set; }
 
-		public Order()
-		{
-			this.Id = -1;
-			this.Date = DateTime.Now;
-			this.TotalAmount = 0;
-			this.Discount = 0;
-			this.UserId = -1;
-			this.SupplierId = -1;
-		}
-
-		private Order(int id, DateTime date, decimal? totalAmount, decimal? discount, int userId, int supplierId)
-		{
-			this.Id = id;
-			this.Date = date;
-			this.TotalAmount = totalAmount;
-			this.Discount = discount;
-			this.UserId = userId;
-			this.User = User.find(this.UserId);
-			this.SupplierId = supplierId;
-			this.Supplier = Supplier.find(this.SupplierId);
-		}
 
 		public DataTable get(string searchString)
 		{
 			throw new NotImplementedException();
 		}
+		//public OrderDetails getOrderDetails(int orderId)
 		public int add(Order order, List<(int, decimal, int)> orderProducts) => OrderData.add(order.Date, order.SupplierId, order.UserId, order.Discount, orderProducts);
 		public int add(Order order) => throw new NotImplementedException();
 

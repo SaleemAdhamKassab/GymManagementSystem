@@ -14,7 +14,7 @@ namespace GMS_DataAccess
 			CommandType = CommandType.Text,
 			CommandText = query
 		};
-		private static string sharedErrorMessage(string errorMessage) => (errorMessage);
+		private static void sharedErrorMessage(string errorMessage) => throw new Exception($"Error: {errorMessage}");
 		public static int add(string query)
 		{
 			int insertedId = -1;

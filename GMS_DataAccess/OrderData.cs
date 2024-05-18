@@ -1,8 +1,4 @@
-﻿using System;
-using System.Data;
-using System.Data.SqlClient;
-
-namespace GMS_DataAccess
+﻿namespace GMS_DataAccess
 {
 	public class OrderData
 	{
@@ -15,11 +11,17 @@ namespace GMS_DataAccess
 			int productId = 0, productQuantity = 0;
 			decimal productPrice = 0, orderTotalAmount = 0;
 
+			//productQuantities -> productId - Quantity
+			List<(int, int)> productQuantities = [];
+
+
 			for (int i = 0; i < orderProducts.Count; i++)
 			{
 				productId = orderProducts.ElementAt(i).Item1;
 				productPrice = orderProducts.ElementAt(i).Item2;
 				productQuantity = orderProducts.ElementAt(i).Item3;
+
+				productQuantities.Add(new(productId, productQuantity));
 
 				//2) insert into OrderProducts
 				query = $"INSERT INTO OrderProducts (ProductId,Price,Quantity, OrderId) VALUES ({productId}, {productPrice}, {productQuantity}, {orderId});SELECT SCOPE_IDENTITY();";
@@ -28,14 +30,17 @@ namespace GMS_DataAccess
 			}
 
 			//3) Update Orders
-			query = $"UPDATE Orders SET TotalAmount = {orderTotalAmount}, Discount = {discount} where id = {orderId}";
+			query = $"UPDATE Orders SET TotalAmount = {orderTotalAmount}, Discount = '{discount}' where id = {orderId}";
 			CRUD.executeNonQuery(query);
 
-			// 4) Update Product Quantity
-			query = $"UPDATE Products SET Quantity = {-1} where id = ";
-			CRUD.executeNonQuery(query);
+			//4) Update Product Quantity
+			for (int i = 0; i < productQuantities.Count; i++)
+			{
+				query = $"UPDATE Products SET Quantity = Quantity + {productQuantities[i].Item2} where id = {productQuantities[i].Item1}";
+				CRUD.executeNonQuery(query);
+			}
 
-			return 0;
+			return orderId;
 		}
 
 		public static bool getOrderDataById(int Id, ref DateTime date, ref int userId, ref int supplierId, ref decimal? totalAmount, ref decimal? discount)

@@ -7,13 +7,11 @@ namespace GMS.Controllers
 {
 	public class PurchasesController : Controller
 	{
-		private readonly Category _categoryRepo = new();
-		private readonly Product _productRepo = new();
+		private readonly Order _orderRepo = new();
 
 		public IActionResult Index(string categoryName)
 		{
-			List<Category> categories = MapProfile.dtToCategories(_categoryRepo.get(categoryName));
-			return View(categories);
+			return View();
 		}
 
 		// Add
@@ -27,57 +25,41 @@ namespace GMS.Controllers
 			List<(int, decimal, int)> orderProducts = [];
 			Order order = new();
 
-
+			//1) convert form to list
 			foreach (var item in Request.Form)
-			{
 				fields.Add((item.Key, item.Value));
 
-
-			}
-
+			//2) fill order
 			order.Date = DateTime.Parse(fields.ElementAt(0).Item2);
-			order.SupplierId = int.Parse(fields.ElementAt(2).Item2);
+			order.SupplierId = 1;
+			order.UserId = 3;
 
+			string discountField = fields.ElementAt(fields.Count - 2).Item2;
+			if (!string.IsNullOrEmpty(discountField))
+				order.Discount = decimal.Parse(discountField);
 
+			//3) fill orderProducts
+			int x = 0;
+			int productId = 0, productQuantity = 0;
+			decimal productPrice = 0;
+			(int, decimal, int) productOrder;
+
+			for (int i = 0; i < fields.Count - 2; i++)
+			{
+				if (i > 2)
+				{
+					productId = int.Parse(fields.ElementAt(i).Item2);
+					productPrice = int.Parse(fields.ElementAt(i + 1).Item2);
+					productQuantity = int.Parse(fields.ElementAt(i + 2).Item2);
+					productOrder = new(productId, productPrice, productQuantity);
+					orderProducts.Add(productOrder);
+					i += 2;
+				}
+			}
 
 			try
 			{
-
-				return RedirectToAction(nameof(Index));
-			}
-			catch (Exception e)
-			{
-				return BadRequest(e.Message);
-			}
-		}
-
-		//Edit
-		public IActionResult edit(int id)
-		{
-			Category category = Category.find(id);
-			if (category is null)
-				return NotFound($"Invalid Category Id: {id}");
-
-			return View(category);
-		}
-
-		[HttpPost]
-		[ValidateAntiForgeryToken]
-		public IActionResult edit(Category category)
-		{
-			if (category is null)
-				return NotFound($"Empty Category");
-
-			Category categoryToUpdate = Category.find(category.Id);
-
-			if (Category.find(category.Name).Name.Trim().ToLower() == category.Name.Trim().ToLower())
-				return BadRequest($"The Category with name {category.Name} already exist");
-
-			categoryToUpdate.Name = category.Name;
-
-			try
-			{
-				_categoryRepo.update(categoryToUpdate);
+				int orderId = _orderRepo.add(order, orderProducts);
 				return RedirectToAction(nameof(Index));
 			}
 			catch (Exception e)
@@ -89,12 +71,7 @@ namespace GMS.Controllers
 		//Delete
 		public IActionResult delete(int id)
 		{
-			Category category = Category.find(id);
-
-			if (category is null)
-				return NotFound($"Invalid Category Id: {id}");
-
-			return View(category);
+			return View();
 		}
 
 		[HttpPost]
@@ -106,7 +83,6 @@ namespace GMS.Controllers
 
 			try
 			{
-				_categoryRepo.delete(category.Id);
 				return RedirectToAction(nameof(Index));
 			}
 			catch (Exception e)
