@@ -1,5 +1,6 @@
 ﻿using System.Data;
 using GMS_DataAccess;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace GMS_BusinessLogic
 {
@@ -15,6 +16,16 @@ namespace GMS_BusinessLogic
 		public Supplier Supplier { get; set; }
 		public List<OrderProduct> OrderProducts { get; set; }
 
+		public Order() { }
+		private Order(int id, DateTime date, decimal? totalAmount, decimal? discount, int userId, int supplierId)
+		{
+			Id = id;
+			Date = date;
+			TotalAmount = totalAmount;
+			Discount = discount;
+			UserId = userId;
+			SupplierId = supplierId;
+		}
 
 		public DataTable get(string searchString)
 		{

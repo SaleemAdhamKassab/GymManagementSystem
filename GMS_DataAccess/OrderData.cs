@@ -1,4 +1,6 @@
-﻿namespace GMS_DataAccess
+﻿using System.Data.SqlClient;
+
+namespace GMS_DataAccess
 {
 	public class OrderData
 	{
