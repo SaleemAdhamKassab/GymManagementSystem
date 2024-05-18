@@ -1,50 +1,18 @@
-﻿using System.Data.SqlClient;
+﻿using System.Data;
+using System.Data.SqlClient;
 
 namespace GMS_DataAccess
 {
 	public class OrderData
 	{
-		public static int add(DateTime date, int supplierId, int userId, decimal? discount, List<(int, decimal, int)> orderProducts)
+		public static DataTable getOrders(string searchString)
 		{
-			//1) insert into Orders
-			int orderId = CRUD.add($"INSERT INTO Orders (Date, SupplierId, UserId) VALUES ('{date}', '{supplierId}', '{userId}');SELECT SCOPE_IDENTITY();");
+			if (!string.IsNullOrEmpty(searchString))
+				searchString = searchString.Trim().ToLower();
 
-			string query = string.Empty;
-			int productId = 0, productQuantity = 0;
-			decimal productPrice = 0, orderTotalAmount = 0;
-
-			//productQuantities -> productId - Quantity
-			List<(int, int)> productQuantities = [];
-
-
-			for (int i = 0; i < orderProducts.Count; i++)
-			{
-				productId = orderProducts.ElementAt(i).Item1;
-				productPrice = orderProducts.ElementAt(i).Item2;
-				productQuantity = orderProducts.ElementAt(i).Item3;
-
-				productQuantities.Add(new(productId, productQuantity));
-
-				//2) insert into OrderProducts
-				query = $"INSERT INTO OrderProducts (ProductId,Price,Quantity, OrderId) VALUES ({productId}, {productPrice}, {productQuantity}, {orderId});SELECT SCOPE_IDENTITY();";
-				orderTotalAmount += productPrice * productQuantity;
-				CRUD.add(query);
-			}
-
-			//3) Update Orders
-			query = $"UPDATE Orders SET TotalAmount = {orderTotalAmount}, Discount = '{discount}' where id = {orderId}";
-			CRUD.executeNonQuery(query);
-
-			//4) Update Product Quantity
-			for (int i = 0; i < productQuantities.Count; i++)
-			{
-				query = $"UPDATE Products SET Quantity = Quantity + {productQuantities[i].Item2} where id = {productQuantities[i].Item1}";
-				CRUD.executeNonQuery(query);
-			}
-
-			return orderId;
+			return CRUD.getUsingDateTable($"select o.Id 'OrderId', o.Date, u.UserName, CONCAT(per.FirstName ,' ', per.LastName) 'Supplier' , o.TotalAmount, o.Discount from Orders o join OrderProducts p on p.OrderId = o.Id join Users u on o.UserId = u.Id join Suppliers s on o.SupplierId = s.Id join Persons per on s.PersonId = per.Id order by date desc");
 		}
-
+		public static DataTable getOrderDetails(int orderId) => CRUD.getUsingDateTable($"select c.Name 'Category Name', p.Name 'Product Name', op.Price, op.Quantity from OrderProducts op join Products p on op.ProductId = p.Id join Categories c on c.Id = p.CategoryId join orders o on op.OrderId = o.Id where o.Id = {orderId}");
 		public static bool getOrderDataById(int Id, ref DateTime date, ref int userId, ref int supplierId, ref decimal? totalAmount, ref decimal? discount)
 		{
 			bool isFound = true;
@@ -94,6 +62,46 @@ namespace GMS_DataAccess
 			}
 
 			return isFound;
+		}
+		public static int add(DateTime date, int supplierId, int userId, decimal? discount, List<(int, decimal, int)> orderProducts)
+		{
+			//1) insert into Orders
+			int orderId = CRUD.add($"INSERT INTO Orders (Date, SupplierId, UserId) VALUES ('{date}', '{supplierId}', '{userId}');SELECT SCOPE_IDENTITY();");
+
+			string query = string.Empty;
+			int productId = 0, productQuantity = 0;
+			decimal productPrice = 0, orderTotalAmount = 0;
+
+			//productQuantities -> productId - Quantity
+			List<(int, int)> productQuantities = [];
+
+
+			for (int i = 0; i < orderProducts.Count; i++)
+			{
+				productId = orderProducts.ElementAt(i).Item1;
+				productPrice = orderProducts.ElementAt(i).Item2;
+				productQuantity = orderProducts.ElementAt(i).Item3;
+
+				productQuantities.Add(new(productId, productQuantity));
+
+				//2) insert into OrderProducts
+				query = $"INSERT INTO OrderProducts (ProductId,Price,Quantity, OrderId) VALUES ({productId}, {productPrice}, {productQuantity}, {orderId});SELECT SCOPE_IDENTITY();";
+				orderTotalAmount += productPrice * productQuantity;
+				CRUD.add(query);
+			}
+
+			//3) Update Orders
+			query = $"UPDATE Orders SET TotalAmount = {orderTotalAmount}, Discount = '{discount}' where id = {orderId}";
+			CRUD.executeNonQuery(query);
+
+			//4) Update Product Quantity
+			for (int i = 0; i < productQuantities.Count; i++)
+			{
+				query = $"UPDATE Products SET Quantity = Quantity + {productQuantities[i].Item2} where id = {productQuantities[i].Item1}";
+				CRUD.executeNonQuery(query);
+			}
+
+			return orderId;
 		}
 	}
 }

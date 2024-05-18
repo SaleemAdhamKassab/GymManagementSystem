@@ -27,14 +27,11 @@ namespace GMS_BusinessLogic
 			SupplierId = supplierId;
 		}
 
-		public DataTable get(string searchString)
-		{
-			throw new NotImplementedException();
-		}
-		//public OrderDetails getOrderDetails(int orderId)
-		public int add(Order order, List<(int, decimal, int)> orderProducts) => OrderData.add(order.Date, order.SupplierId, order.UserId, order.Discount, orderProducts);
-		public int add(Order order) => throw new NotImplementedException();
 
+
+		public DataTable get(string searchString) => OrderData.getOrders(searchString);
+		public DataTable getOrderDetails(int orderId) => OrderData.getOrderDetails(orderId);
+		public int add(Order order, List<(int, decimal, int)> orderProducts) => OrderData.add(order.Date, order.SupplierId, order.UserId, order.Discount, orderProducts);
 		public static Order find(int Id)
 		{
 			DateTime date = DateTime.Now;
@@ -48,12 +45,7 @@ namespace GMS_BusinessLogic
 			else
 				return null;
 		}
-
-		public bool update(Order order)
-		{
-			throw new NotImplementedException();
-		}
-		public bool delete(int id)
+		public bool delete(int orderId)
 		{
 			throw new NotImplementedException();
 		}

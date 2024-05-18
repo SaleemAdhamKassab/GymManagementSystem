@@ -1,5 +1,7 @@
-﻿using GMS_BusinessLogic;
+﻿using GMS.ViewModels;
+using GMS_BusinessLogic;
 using GMS_BusinessLogic.Categories;
+using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.Blazor;
 using System.Data;
 
 namespace GMS.Mapper
@@ -91,6 +93,47 @@ namespace GMS.Mapper
 			}
 
 			return suppliers;
+		}
+		///////////////////////////// Orders Purchases /////////////////////////////
+		public static List<OrderPurchaseViewModel> dtToOrders(DataTable ordersDataTable)
+		{
+			List<OrderPurchaseViewModel> orders = [];
+
+			foreach (DataRow dataRow in ordersDataTable.Rows)
+			{
+				OrderPurchaseViewModel order = new()
+				{
+					OrderId = int.Parse(dataRow["OrderId"].ToString()),
+					Date = (DateTime)dataRow["Date"],
+					UserName = dataRow["UserName"].ToString(),
+					Supplier = dataRow["Supplier"].ToString(),
+					TotalAmount = (double)dataRow["TotalAmount"],
+					Discount = (double)dataRow["Discount"]
+				};
+
+				orders.Add(order);
+			}
+
+			return orders;
+		}
+		public static List<OrderDetailsViewModel> dtToOrderDetails(DataTable orderDetailsDataTable)
+		{
+			List<OrderDetailsViewModel> orderDetails = [];
+
+			foreach (DataRow dataRow in orderDetailsDataTable.Rows)
+			{
+				OrderDetailsViewModel order = new()
+				{
+					ProductCategory = dataRow["Category Name"].ToString(),
+					ProductName = dataRow["Product Name"].ToString(),
+					ProductPrice = double.Parse(dataRow["Price"].ToString()),
+					ProductQuantity = double.Parse(dataRow["Quantity"].ToString())
+				};
+
+				orderDetails.Add(order);
+			}
+
+			return orderDetails;
 		}
 	}
 }

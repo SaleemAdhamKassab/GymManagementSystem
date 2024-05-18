@@ -1,4 +1,5 @@
 ﻿using GMS.Mapper;
+using GMS.ViewModels;
 using GMS_BusinessLogic;
 using GMS_BusinessLogic.Categories;
 using Microsoft.AspNetCore.Mvc;
@@ -9,9 +10,16 @@ namespace GMS.Controllers
 	{
 		private readonly Order _orderRepo = new();
 
-		public IActionResult Index(string categoryName)
+		public IActionResult Index(string searchString)
 		{
-			return View();
+			List<OrderPurchaseViewModel> orders = MapProfile.dtToOrders(_orderRepo.get(searchString));
+			return View(orders);
+		}
+
+		public IActionResult details(int orderId)
+		{
+			List<OrderDetailsViewModel> orderDetails = MapProfile.dtToOrderDetails(_orderRepo.getOrderDetails(orderId));
+			return View(orderDetails);
 		}
 
 		// Add
@@ -32,7 +40,7 @@ namespace GMS.Controllers
 			//2) fill order
 			order.Date = DateTime.Parse(fields.ElementAt(0).Item2);
 			order.SupplierId = 1;
-			order.UserId = 3;
+			order.UserId = 1;
 
 			string discountField = fields.ElementAt(fields.Count - 2).Item2;
 			if (!string.IsNullOrEmpty(discountField))
