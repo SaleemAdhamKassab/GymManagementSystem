@@ -8,8 +8,8 @@ namespace GMS_BusinessLogic
 	{
 		public int Id { get; set; }
 		public DateTime Date { get; set; }
-		public decimal? TotalAmount { get; set; }
-		public decimal? Discount { get; set; }
+		public double? TotalAmount { get; set; }
+		public double? Discount { get; set; }
 		public int UserId { get; set; }
 		public User User { get; set; }
 		public int SupplierId { get; set; }
@@ -17,7 +17,7 @@ namespace GMS_BusinessLogic
 		public List<OrderProduct> OrderProducts { get; set; }
 
 		public Order() { }
-		private Order(int id, DateTime date, decimal? totalAmount, decimal? discount, int userId, int supplierId)
+		private Order(int id, DateTime date, double? totalAmount, double? discount, int userId, int supplierId)
 		{
 			Id = id;
 			Date = date;
@@ -36,7 +36,7 @@ namespace GMS_BusinessLogic
 		{
 			DateTime date = DateTime.Now;
 			int userId = -1, supplierId = -1;
-			decimal? totalAmount = 0, discount = 0;
+			double? totalAmount = 0, discount = 0;
 
 			if (OrderData.getOrderDataById(Id, ref date, ref userId, ref supplierId, ref totalAmount, ref discount))
 			{
@@ -45,9 +45,6 @@ namespace GMS_BusinessLogic
 			else
 				return null;
 		}
-		public bool delete(int orderId)
-		{
-			throw new NotImplementedException();
-		}
+		public void delete(int orderId) => OrderData.delete(orderId);
 	}
 }

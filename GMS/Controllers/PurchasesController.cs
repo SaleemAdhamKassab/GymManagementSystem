@@ -44,7 +44,7 @@ namespace GMS.Controllers
 
 			string discountField = fields.ElementAt(fields.Count - 2).Item2;
 			if (!string.IsNullOrEmpty(discountField))
-				order.Discount = decimal.Parse(discountField);
+				order.Discount = double.Parse(discountField);
 
 			//3) fill orderProducts
 			int x = 0;
@@ -77,20 +77,19 @@ namespace GMS.Controllers
 		}
 
 		//Delete
-		public IActionResult delete(int id)
+		public IActionResult delete(int orderId)
 		{
-			return View();
+			Order order = Order.find(orderId);
+			return View(order);
 		}
 
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		public IActionResult delete(Category category)
+		public IActionResult delete(Order order)
 		{
-			if (!ModelState.IsValid)
-				return BadRequest("Invalid Category");
-
 			try
 			{
+				_orderRepo.delete(order.Id);
 				return RedirectToAction(nameof(Index));
 			}
 			catch (Exception e)

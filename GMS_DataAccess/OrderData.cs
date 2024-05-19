@@ -17,7 +17,7 @@ namespace GMS_DataAccess
 				return CRUD.getUsingDateTable($"select o.Id 'OrderId', o.Date, u.UserName, CONCAT(per.FirstName ,' ', per.LastName) 'Supplier' , o.TotalAmount, o.Discount from Orders o join OrderProducts p on p.OrderId = o.Id join Users u on o.UserId = u.Id join Suppliers s on o.SupplierId = s.Id join Persons per on s.PersonId = per.Id  where lower(u.UserName) like '%{searchString}%' or lower(per.FirstName) like '%{searchString}%' or lower(per.LastName) like '%{searchString}%' order by date desc");
 		}
 		public static DataTable getOrderDetails(int orderId) => CRUD.getUsingDateTable($"select c.Name 'Category Name', p.Name 'Product Name', op.Price, op.Quantity from OrderProducts op join Products p on op.ProductId = p.Id join Categories c on c.Id = p.CategoryId join orders o on op.OrderId = o.Id where o.Id = {orderId}");
-		public static bool getOrderDataById(int Id, ref DateTime date, ref int userId, ref int supplierId, ref decimal? totalAmount, ref decimal? discount)
+		public static bool getOrderDataById(int Id, ref DateTime date, ref int userId, ref int supplierId, ref double? totalAmount, ref double? discount)
 		{
 			bool isFound = true;
 
@@ -43,11 +43,11 @@ namespace GMS_DataAccess
 					userId = (int)reader["userId"];
 					supplierId = (int)reader["SupplierID"];
 					if (reader["TotalAmount"] != DBNull.Value)
-						totalAmount = (decimal)reader["TotalAmount"];
+						totalAmount = (double)reader["TotalAmount"];
 					else
 						totalAmount = null;
 					if (reader["Discount"] != DBNull.Value)
-						discount = (decimal)reader["Discount"];
+						discount = (double)reader["Discount"];
 					else
 						discount = null;
 				}
@@ -67,7 +67,7 @@ namespace GMS_DataAccess
 
 			return isFound;
 		}
-		public static int add(DateTime date, int supplierId, int userId, decimal? discount, List<(int, decimal, int)> orderProducts)
+		public static int add(DateTime date, int supplierId, int userId, double? discount, List<(int, decimal, int)> orderProducts)
 		{
 			//1) insert into Orders
 			int orderId = CRUD.add($"INSERT INTO Orders (Date, SupplierId, UserId) VALUES ('{date}', '{supplierId}', '{userId}');SELECT SCOPE_IDENTITY();");
@@ -106,6 +106,15 @@ namespace GMS_DataAccess
 			}
 
 			return orderId;
+		}
+		public static void delete(int orderId)
+		{
+			string query = string.Empty;
+
+			query = $"delete from OrderProducts where orderId = {orderId}";
+			CRUD.executeNonQuery(query);
+			query = $"delete from Orders where id = {orderId}";
+			CRUD.executeNonQuery(query);
 		}
 	}
 }
