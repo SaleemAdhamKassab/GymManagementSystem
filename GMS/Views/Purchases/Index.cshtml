@@ -7,7 +7,7 @@
 	<form method="get" asp-action="Index">
 		<div class="row">
 			<div class="input-group mb-3">
-				<input type="search" name="categoryName" class="form-control input-text" placeholder="Search Invoice....">
+				<input type="search" name="searchString" class="form-control input-text" placeholder="Search Invoice by Date (yyyy-mm-dd) Or UserName Or Supplier....">
 				<div class="input-group-append">
 					<button type="submit" class="btn btn-outline-warning"><i class="fa fa-search"></i></button>
 				</div>
@@ -31,7 +31,7 @@
 				Total Amount
 			</th>
 			<th>
-				Discount
+				Discount%
 			</th>
 			<th></th>
 		</tr>
@@ -53,13 +53,13 @@
 					@Html.DisplayFor(modelItem => order.TotalAmount)
 				</td>
 				<td>
-					@Html.DisplayFor(modelItem => order.Discount)
+					@Html.DisplayFor(modelItem => order.Discount) %
 				</td>
 
 				<td>
 					<div style="float:right">
 						<a asp-action="details" asp-route-orderId="@order.OrderId"><i class="fa fa-info" style="margin-right:10px; color:mediumaquamarine" title="Details"></i></a>
-						<a asp-action="delete" asp-route-id="@order.OrderId"><i class="fa fa-trash" style="color:red" title="Delete"></i></a>
+						<a asp-action="delete" asp-route-orderId="@order.OrderId"><i class="fa fa-trash" style="color:red" title="Delete"></i></a>
 					</div>
 				</td>
 			</tr>

@@ -10,7 +10,11 @@ namespace GMS_DataAccess
 			if (!string.IsNullOrEmpty(searchString))
 				searchString = searchString.Trim().ToLower();
 
-			return CRUD.getUsingDateTable($"select o.Id 'OrderId', o.Date, u.UserName, CONCAT(per.FirstName ,' ', per.LastName) 'Supplier' , o.TotalAmount, o.Discount from Orders o join OrderProducts p on p.OrderId = o.Id join Users u on o.UserId = u.Id join Suppliers s on o.SupplierId = s.Id join Persons per on s.PersonId = per.Id order by date desc");
+			//search for date
+			if (!string.IsNullOrEmpty(searchString) && searchString.Contains("-"))
+				return CRUD.getUsingDateTable($"select o.Id 'OrderId', o.Date, u.UserName, CONCAT(per.FirstName ,' ', per.LastName) 'Supplier' , o.TotalAmount, o.Discount from Orders o join OrderProducts p on p.OrderId = o.Id join Users u on o.UserId = u.Id join Suppliers s on o.SupplierId = s.Id join Persons per on s.PersonId = per.Id  where o.Date ='{searchString}'");
+			else
+				return CRUD.getUsingDateTable($"select o.Id 'OrderId', o.Date, u.UserName, CONCAT(per.FirstName ,' ', per.LastName) 'Supplier' , o.TotalAmount, o.Discount from Orders o join OrderProducts p on p.OrderId = o.Id join Users u on o.UserId = u.Id join Suppliers s on o.SupplierId = s.Id join Persons per on s.PersonId = per.Id  where lower(u.UserName) like '%{searchString}%' or lower(per.FirstName) like '%{searchString}%' or lower(per.LastName) like '%{searchString}%' order by date desc");
 		}
 		public static DataTable getOrderDetails(int orderId) => CRUD.getUsingDateTable($"select c.Name 'Category Name', p.Name 'Product Name', op.Price, op.Quantity from OrderProducts op join Products p on op.ProductId = p.Id join Categories c on c.Id = p.CategoryId join orders o on op.OrderId = o.Id where o.Id = {orderId}");
 		public static bool getOrderDataById(int Id, ref DateTime date, ref int userId, ref int supplierId, ref decimal? totalAmount, ref decimal? discount)
