@@ -38,6 +38,16 @@ namespace GMS_BusinessLogic
 			else return null;
 		}
 
+		public static Supplier find(string firstName, string lastName)
+		{
+			int id = -1, personId = -1;
+
+			if (SupplierData.getSupplierDataByFirstNameAndLastName(firstName, lastName, ref id, ref personId))
+				return new Supplier(id, personId);
+			else
+				return null;
+		}
+
 		public int add(Supplier supplier) => supplier.Id = SupplierData.addSupplier(this.PersonId);
 
 		public bool update(Supplier supplier) => SupplierData.updateSupplier(supplier.Id, supplier.PersonId);

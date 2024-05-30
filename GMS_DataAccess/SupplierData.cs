@@ -50,6 +50,50 @@ namespace GMS_DataAccess
 
 		}
 
+		public static bool getSupplierDataByFirstNameAndLastName(string FirstName, string LastName,
+		ref int Id, ref int PersonId)
+		{
+			bool IsFound = false;
+
+			SqlConnection connection = new SqlConnection(DataAccessSettings.ConnectionString);
+
+			string query = @"SELECT Suppliers.Id, Suppliers.PersonId FROM Suppliers INNER JOIN Persons
+							ON Suppliers.PersonId = Persons.Id
+							WHERE Persons.FirstName = @FirstName AND LastName = @LastName";
+
+			SqlCommand command = new SqlCommand(query, connection);
+
+			command.Parameters.AddWithValue("@FirstName", FirstName);
+			command.Parameters.AddWithValue("@LastName", LastName);
+
+			try
+			{
+				connection.Open();
+
+				SqlDataReader reader = command.ExecuteReader();
+
+				if (reader.Read())
+				{
+					IsFound = true;
+
+					Id = (int)reader["Id"];
+					PersonId = (int)reader["PersonID"];
+				}
+				else
+					IsFound = false;
+
+				reader.Close();
+			}
+			catch (Exception ex)
+			{
+				IsFound = false;
+				ex = new Exception(ex.Message);
+			}
+			finally { connection.Close(); }
+
+			return IsFound;
+		}
+
 		public static int addSupplier(int personId) => CRUD.add($"INSERT INTO Persons (PersonId) VALUES ({personId}); SELECT SCOPE_IDETITY();");
 
 		public static bool updateSupplier(int supplierId, int personId) => CRUD.executeNonQuery($"UPDATE Suppliers SET PersonId = {personId} WHERE Id = {supplierId}");

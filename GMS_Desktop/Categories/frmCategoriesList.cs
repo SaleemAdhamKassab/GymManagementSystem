@@ -48,7 +48,7 @@ namespace GMS_Desktop
         {
 
             _dtCategoriesList.DefaultView.RowFilter = string.Format("[Name] LIKE '{0}%'", txtFindByID_Name.Text.Trim());
-            dgvCategoriesList.DataSource = _dtCategoriesList.DefaultView.Table;
+            dgvCategoriesList.DataSource = _dtCategoriesList.DefaultView.ToTable(false, "Name");
             lblNumberOfCategories.Text = _dtCategoriesList.DefaultView.Count.ToString();
 
         }

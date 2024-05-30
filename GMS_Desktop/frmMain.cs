@@ -28,5 +28,10 @@ namespace GMS_Desktop
             frmPurchases frm = new frmPurchases();
             frm.ShowDialog();
         }
+
+        private void salesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

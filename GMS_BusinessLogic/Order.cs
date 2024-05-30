@@ -16,7 +16,16 @@ namespace GMS_BusinessLogic
 		public Supplier Supplier { get; set; }
 		public List<OrderProduct> OrderProducts { get; set; }
 
-		public Order() { }
+		public Order() 
+		{
+			Id = -1;
+			Date = DateTime.Now;
+			TotalAmount = 0;
+			Discount = 0;
+			UserId = -1;
+			SupplierId = -1;
+
+		}
 		private Order(int id, DateTime date, double? totalAmount, double? discount, int userId, int supplierId)
 		{
 			Id = id;
