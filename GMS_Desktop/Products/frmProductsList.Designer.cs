@@ -62,19 +62,19 @@
             // 
             contextMenuStrip1.Items.AddRange(new ToolStripItem[] { editToolStripMenuItem, deleteToolStripMenuItem });
             contextMenuStrip1.Name = "contextMenuStrip1";
-            contextMenuStrip1.Size = new Size(181, 70);
+            contextMenuStrip1.Size = new Size(108, 48);
             // 
             // editToolStripMenuItem
             // 
             editToolStripMenuItem.Name = "editToolStripMenuItem";
-            editToolStripMenuItem.Size = new Size(180, 22);
+            editToolStripMenuItem.Size = new Size(107, 22);
             editToolStripMenuItem.Text = "Edit";
             editToolStripMenuItem.Click += editToolStripMenuItem_Click;
             // 
             // deleteToolStripMenuItem
             // 
             deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
-            deleteToolStripMenuItem.Size = new Size(180, 22);
+            deleteToolStripMenuItem.Size = new Size(107, 22);
             deleteToolStripMenuItem.Text = "Delete";
             deleteToolStripMenuItem.Click += deleteToolStripMenuItem_Click;
             // 
@@ -145,6 +145,7 @@
             // 
             btnAddNew.BackgroundImage = Properties.Resources.add_item1;
             btnAddNew.BackgroundImageLayout = ImageLayout.Zoom;
+            btnAddNew.FlatStyle = FlatStyle.Popup;
             btnAddNew.Location = new Point(404, 69);
             btnAddNew.Name = "btnAddNew";
             btnAddNew.Size = new Size(45, 45);

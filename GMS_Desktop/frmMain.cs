@@ -25,13 +25,14 @@ namespace GMS_Desktop
 
         private void purchasesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmPurchases frm = new frmPurchases();
+            frmPurchaseOrders frm = new frmPurchaseOrders();
             frm.ShowDialog();
         }
 
         private void salesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            frmSales frm = new frmSales();
+            frm.ShowDialog();
         }
     }
 }

@@ -11,9 +11,9 @@ namespace GMS_BusinessLogic
 		public double? TotalAmount { get; set; }
 		public double? Discount { get; set; }
 		public int UserId { get; set; }
-		public User User { get; set; }
+		public User UserInfo { get; set; }
 		public int SupplierId { get; set; }
-		public Supplier Supplier { get; set; }
+		public Supplier SupplierInfo { get; set; }
 		public List<OrderProduct> OrderProducts { get; set; }
 
 		public Order() 
@@ -33,7 +33,9 @@ namespace GMS_BusinessLogic
 			TotalAmount = totalAmount;
 			Discount = discount;
 			UserId = userId;
+			UserInfo = User.find(UserId);
 			SupplierId = supplierId;
+			SupplierInfo = Supplier.find(SupplierId);
 		}
 
 

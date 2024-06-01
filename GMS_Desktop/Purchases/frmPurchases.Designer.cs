@@ -29,6 +29,9 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             lblPurchases = new Label();
             btnCreateOrder = new Button();
             dtpOrderDate = new DateTimePicker();
@@ -36,12 +39,16 @@
             label1 = new Label();
             label2 = new Label();
             dgvOrderProducts = new DataGridView();
-            btnAddProduct = new Button();
-            btnDelete = new Button();
             cmsPurchases = new ContextMenuStrip(components);
             deleteToolStripMenuItem = new ToolStripMenuItem();
+            btnClose = new Button();
+            label3 = new Label();
+            nudDiscount = new NumericUpDown();
+            errorProvider1 = new ErrorProvider(components);
             ((System.ComponentModel.ISupportInitialize)dgvOrderProducts).BeginInit();
             cmsPurchases.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)nudDiscount).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)errorProvider1).BeginInit();
             SuspendLayout();
             // 
             // lblPurchases
@@ -56,36 +63,42 @@
             // 
             // btnCreateOrder
             // 
-            btnCreateOrder.BackColor = Color.Blue;
+            btnCreateOrder.BackColor = Color.White;
             btnCreateOrder.FlatStyle = FlatStyle.Popup;
-            btnCreateOrder.Location = new Point(40, 412);
+            btnCreateOrder.Font = new Font("Microsoft Sans Serif", 12F);
+            btnCreateOrder.ImageAlign = ContentAlignment.MiddleLeft;
+            btnCreateOrder.Location = new Point(518, 407);
             btnCreateOrder.Name = "btnCreateOrder";
-            btnCreateOrder.Size = new Size(95, 35);
-            btnCreateOrder.TabIndex = 8;
+            btnCreateOrder.Size = new Size(130, 40);
+            btnCreateOrder.TabIndex = 5;
             btnCreateOrder.Text = "Purchase";
             btnCreateOrder.UseVisualStyleBackColor = false;
             btnCreateOrder.Click += btnCreateOrder_Click;
             // 
             // dtpOrderDate
             // 
-            dtpOrderDate.Location = new Point(71, 130);
+            dtpOrderDate.Font = new Font("Microsoft Sans Serif", 12F);
+            dtpOrderDate.Location = new Point(71, 82);
             dtpOrderDate.Name = "dtpOrderDate";
-            dtpOrderDate.Size = new Size(200, 20);
-            dtpOrderDate.TabIndex = 9;
+            dtpOrderDate.Size = new Size(265, 26);
+            dtpOrderDate.TabIndex = 1;
             // 
             // cbSuppliers
             // 
+            cbSuppliers.DropDownStyle = ComboBoxStyle.DropDownList;
+            cbSuppliers.Font = new Font("Microsoft Sans Serif", 12F);
             cbSuppliers.FormattingEnabled = true;
-            cbSuppliers.Location = new Point(376, 129);
+            cbSuppliers.Location = new Point(462, 79);
             cbSuppliers.Name = "cbSuppliers";
-            cbSuppliers.Size = new Size(205, 21);
-            cbSuppliers.TabIndex = 10;
+            cbSuppliers.Size = new Size(205, 28);
+            cbSuppliers.TabIndex = 2;
+            cbSuppliers.Validating += cbSuppliers_Validating;
             // 
             // label1
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label1.Location = new Point(12, 130);
+            label1.Location = new Point(12, 82);
             label1.Name = "label1";
             label1.Size = new Size(53, 20);
             label1.TabIndex = 11;
@@ -95,7 +108,7 @@
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label2.Location = new Point(290, 129);
+            label2.Location = new Point(376, 82);
             label2.Name = "label2";
             label2.Size = new Size(80, 20);
             label2.TabIndex = 12;
@@ -105,60 +118,99 @@
             // 
             dgvOrderProducts.AllowUserToOrderColumns = true;
             dgvOrderProducts.BackgroundColor = Color.White;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = SystemColors.Control;
+            dataGridViewCellStyle1.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            dgvOrderProducts.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             dgvOrderProducts.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvOrderProducts.ContextMenuStrip = cmsPurchases;
-            dgvOrderProducts.Location = new Point(112, 234);
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = SystemColors.Window;
+            dataGridViewCellStyle2.Font = new Font("Microsoft Sans Serif", 12F);
+            dataGridViewCellStyle2.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
+            dgvOrderProducts.DefaultCellStyle = dataGridViewCellStyle2;
+            dgvOrderProducts.Location = new Point(86, 176);
             dgvOrderProducts.Name = "dgvOrderProducts";
-            dgvOrderProducts.Size = new Size(405, 164);
-            dgvOrderProducts.TabIndex = 13;
-            dgvOrderProducts.CellClick += dgvOrderProducts_CellClick;
-            dgvOrderProducts.CellFormatting += dgvOrderProducts_CellFormatting;
-            dgvOrderProducts.RowEnter += dgvOrderProducts_RowEnter;
-            // 
-            // btnAddProduct
-            // 
-            btnAddProduct.BackColor = Color.Green;
-            btnAddProduct.FlatStyle = FlatStyle.Popup;
-            btnAddProduct.Location = new Point(40, 176);
-            btnAddProduct.Name = "btnAddProduct";
-            btnAddProduct.Size = new Size(95, 35);
-            btnAddProduct.TabIndex = 14;
-            btnAddProduct.Text = "Add Product";
-            btnAddProduct.UseVisualStyleBackColor = false;
-            btnAddProduct.Click += btnAddProduct_Click;
-            // 
-            // btnDelete
-            // 
-            btnDelete.BackColor = Color.Red;
-            btnDelete.FlatStyle = FlatStyle.Popup;
-            btnDelete.Location = new Point(541, 252);
-            btnDelete.Name = "btnDelete";
-            btnDelete.Size = new Size(95, 35);
-            btnDelete.TabIndex = 15;
-            btnDelete.Text = "Delete";
-            btnDelete.UseVisualStyleBackColor = false;
-            btnDelete.Click += btnDelete_Click;
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = SystemColors.Control;
+            dataGridViewCellStyle3.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle3.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
+            dgvOrderProducts.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dgvOrderProducts.Size = new Size(496, 212);
+            dgvOrderProducts.TabIndex = 4;
+            dgvOrderProducts.RowValidating += dgvOrderProducts_RowValidating;
             // 
             // cmsPurchases
             // 
+            cmsPurchases.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             cmsPurchases.Items.AddRange(new ToolStripItem[] { deleteToolStripMenuItem });
             cmsPurchases.Name = "contextMenuStrip1";
-            cmsPurchases.Size = new Size(108, 26);
+            cmsPurchases.Size = new Size(181, 50);
             // 
             // deleteToolStripMenuItem
             // 
             deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
-            deleteToolStripMenuItem.Size = new Size(107, 22);
+            deleteToolStripMenuItem.Size = new Size(180, 24);
             deleteToolStripMenuItem.Text = "Delete";
             deleteToolStripMenuItem.Click += deleteToolStripMenuItem_Click;
+            // 
+            // btnClose
+            // 
+            btnClose.BackColor = Color.White;
+            btnClose.FlatStyle = FlatStyle.Popup;
+            btnClose.Font = new Font("Microsoft Sans Serif", 12F);
+            btnClose.Image = Properties.Resources.Close_32;
+            btnClose.ImageAlign = ContentAlignment.MiddleLeft;
+            btnClose.Location = new Point(376, 407);
+            btnClose.Name = "btnClose";
+            btnClose.Size = new Size(130, 40);
+            btnClose.TabIndex = 6;
+            btnClose.Text = "Close";
+            btnClose.UseVisualStyleBackColor = false;
+            btnClose.Click += btnClose_Click;
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label3.Location = new Point(151, 134);
+            label3.Name = "label3";
+            label3.Size = new Size(85, 20);
+            label3.TabIndex = 15;
+            label3.Text = "Discount:";
+            // 
+            // nudDiscount
+            // 
+            nudDiscount.Font = new Font("Microsoft Sans Serif", 12F);
+            errorProvider1.SetIconPadding(nudDiscount, 3);
+            nudDiscount.Location = new Point(259, 132);
+            nudDiscount.Name = "nudDiscount";
+            nudDiscount.Size = new Size(172, 26);
+            nudDiscount.TabIndex = 16;
+            // 
+            // errorProvider1
+            // 
+            errorProvider1.ContainerControl = this;
             // 
             // frmPurchases
             // 
             AutoScaleDimensions = new SizeF(6F, 13F);
             AutoScaleMode = AutoScaleMode.Font;
+            CancelButton = btnClose;
             ClientSize = new Size(686, 459);
-            Controls.Add(btnDelete);
-            Controls.Add(btnAddProduct);
+            Controls.Add(nudDiscount);
+            Controls.Add(label3);
+            Controls.Add(btnClose);
             Controls.Add(dgvOrderProducts);
             Controls.Add(label2);
             Controls.Add(label1);
@@ -174,6 +226,8 @@
             Load += frmPurchases_Load;
             ((System.ComponentModel.ISupportInitialize)dgvOrderProducts).EndInit();
             cmsPurchases.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)nudDiscount).EndInit();
+            ((System.ComponentModel.ISupportInitialize)errorProvider1).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -187,9 +241,11 @@
         private Label label1;
         private Label label2;
         private DataGridView dgvOrderProducts;
-        private Button btnAddProduct;
-        private Button btnDelete;
         private ContextMenuStrip cmsPurchases;
         private ToolStripMenuItem deleteToolStripMenuItem;
+        private Button btnClose;
+        private Label label3;
+        private NumericUpDown nudDiscount;
+        private ErrorProvider errorProvider1;
     }
 }
