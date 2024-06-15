@@ -5,7 +5,7 @@ namespace GMS_DataAccess
 {
 	public class ProductData
 	{
-		public static bool getProductDataByID(int id, ref string name, ref int quantity, ref int categoryId)
+		public static bool getProductDataByID(int id, ref string name, ref int quantity, ref double price, ref double PriceWithProfit, ref int categoryId, ref string ImagePath)
 		{
 			bool isFound = false;
 
@@ -24,7 +24,10 @@ namespace GMS_DataAccess
 					isFound = true;
 					name = (string)reader["Name"];
 					quantity = (int)reader["Quantity"];
+					price = (double)reader["Price"];
+					PriceWithProfit = (double)reader["PriceWithProfit"];
 					categoryId = (int)reader["CategoryId"];
+					ImagePath = reader["ImagePath"] != DBNull.Value ? (string)reader["ImagePath"] : string.Empty;
 				}
 				else
 					isFound = false;
@@ -44,7 +47,7 @@ namespace GMS_DataAccess
 			return isFound;
 		}
 
-		public static bool getProductDataByName(ref int id, string name, ref int quantity, ref int categoryId)
+		public static bool getProductDataByName(ref int id, string name, ref int quantity, ref double price, ref double PriceWithProfit, ref int categoryId, ref string ImagePath)
 		{
 			bool isFound = false;
 
@@ -66,8 +69,11 @@ namespace GMS_DataAccess
 					isFound = true;
 					id = (int)reader["Id"];
 					quantity = (int)reader["Quantity"];
+					price = (double)reader["Price"];
+					PriceWithProfit = (double)reader["PriceWithProfit"];
 					categoryId = (int)reader["CategoryId"];
-				}
+                    ImagePath = reader["ImagePath"] != DBNull.Value ? (string)reader["ImagePath"] : string.Empty;
+                }
 				else
 					isFound = false;
 
@@ -94,10 +100,12 @@ namespace GMS_DataAccess
 			return CRUD.getUsingDateTable($"SELECT * FROM Products where lower(name) like '%{searchString}%' order by name");
 		}
 		public static DataTable get() => CRUD.getUsingDateTable("SELECT * FROM Products");
-		public static int add(string name, int quantity, int categoryId) =>
-		CRUD.add($"INSERT INTO Products (Name, Quantity, CategoryId) VALUES ('{name.Trim()}', {quantity}, {categoryId}); SELECT SCOPE_IDENTITY();");
-		public static bool update(int id, string name, int quantity, int categoryId) =>
-		CRUD.executeNonQuery($"UPDATE Products SET Name = '{name.Trim()}', Quantity = {quantity}, CategoryId = {categoryId} WHERE Id = {id}");
+		public static DataTable getProductsByItem(int categoryId) => 
+		CRUD.getUsingDateTable($"SELECT Products.Id, Products.Name, Products.Quantity FROM Products INNER JOIN Categories ON Products.CategoryId = Categories.Id WHERE Categories.Id = {categoryId}");
+		public static int add(string name, int quantity, double price, double priceWithProfit, int categoryId, string imagePath) =>
+		CRUD.add($"INSERT INTO Products (Name, Quantity, Price, PriceWithProfit, CategoryId, ImagePath) VALUES ('{name.Trim()}', {quantity}, {price}, {priceWithProfit}, {categoryId}, {imagePath}); SELECT SCOPE_IDENTITY();");
+		public static bool update(int id, string name, int quantity, double price, double priceWithProfit, int categoryId, string imagePath) =>
+		CRUD.executeNonQuery($"UPDATE Products SET Name = '{name.Trim()}', Quantity = {quantity}, Price = {price}, PriceWithProfit = {priceWithProfit}, CategoryId = {categoryId}, ImagePath = {imagePath} WHERE Id = {id}");
 		public static bool delete(int id) => CRUD.executeNonQuery($"DELETE Products WHERE Id = {id}");
 	}
 }

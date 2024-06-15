@@ -31,7 +31,7 @@ namespace GMS_Desktop
 
         private void salesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmSales frm = new frmSales();
+            frmSalesList frm = new frmSalesList();
             frm.ShowDialog();
         }
     }
