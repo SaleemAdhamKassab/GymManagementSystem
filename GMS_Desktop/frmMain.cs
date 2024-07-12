@@ -34,5 +34,17 @@ namespace GMS_Desktop
             frmSalesList frm = new frmSalesList();
             frm.ShowDialog();
         }
+
+        private void clentsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmClientsList frm = new frmClientsList();
+            frm.ShowDialog();
+        }
+
+        private void memberToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmMembership frm = new frmMembership();
+            frm.ShowDialog();
+        }
     }
 }

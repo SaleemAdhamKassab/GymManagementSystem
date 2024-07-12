@@ -33,13 +33,16 @@
             productToolStripMenuItem = new ToolStripMenuItem();
             purchasesToolStripMenuItem = new ToolStripMenuItem();
             salesToolStripMenuItem = new ToolStripMenuItem();
+            clentsToolStripMenuItem = new ToolStripMenuItem();
+            memberToolStripMenuItem = new ToolStripMenuItem();
             label1 = new Label();
+            offersToolStripMenuItem = new ToolStripMenuItem();
             menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
             // menuStrip1
             // 
-            menuStrip1.Items.AddRange(new ToolStripItem[] { categoriesToolStripMenuItem, productToolStripMenuItem, purchasesToolStripMenuItem, salesToolStripMenuItem });
+            menuStrip1.Items.AddRange(new ToolStripItem[] { categoriesToolStripMenuItem, productToolStripMenuItem, purchasesToolStripMenuItem, salesToolStripMenuItem, clentsToolStripMenuItem, memberToolStripMenuItem, offersToolStripMenuItem });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
             menuStrip1.Size = new Size(1029, 28);
@@ -80,6 +83,24 @@
             salesToolStripMenuItem.Text = "Sales";
             salesToolStripMenuItem.Click += salesToolStripMenuItem_Click;
             // 
+            // clentsToolStripMenuItem
+            // 
+            clentsToolStripMenuItem.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            clentsToolStripMenuItem.ImageScaling = ToolStripItemImageScaling.None;
+            clentsToolStripMenuItem.Name = "clentsToolStripMenuItem";
+            clentsToolStripMenuItem.Size = new Size(69, 24);
+            clentsToolStripMenuItem.Text = "Clients";
+            clentsToolStripMenuItem.Click += clentsToolStripMenuItem_Click;
+            // 
+            // memberToolStripMenuItem
+            // 
+            memberToolStripMenuItem.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            memberToolStripMenuItem.ImageScaling = ToolStripItemImageScaling.None;
+            memberToolStripMenuItem.Name = "memberToolStripMenuItem";
+            memberToolStripMenuItem.Size = new Size(116, 24);
+            memberToolStripMenuItem.Text = "Memberships";
+            memberToolStripMenuItem.Click += memberToolStripMenuItem_Click;
+            // 
             // label1
             // 
             label1.AutoSize = true;
@@ -89,6 +110,12 @@
             label1.Size = new Size(150, 37);
             label1.TabIndex = 1;
             label1.Text = "Welcome";
+            // 
+            // offersToolStripMenuItem
+            // 
+            offersToolStripMenuItem.Name = "offersToolStripMenuItem";
+            offersToolStripMenuItem.Size = new Size(51, 24);
+            offersToolStripMenuItem.Text = "Offers";
             // 
             // frmMain
             // 
@@ -118,5 +145,8 @@
         private Label label1;
         private ToolStripMenuItem purchasesToolStripMenuItem;
         private ToolStripMenuItem salesToolStripMenuItem;
+        private ToolStripMenuItem clentsToolStripMenuItem;
+        private ToolStripMenuItem memberToolStripMenuItem;
+        private ToolStripMenuItem offersToolStripMenuItem;
     }
 }

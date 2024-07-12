@@ -11,6 +11,11 @@ namespace GMS_BusinessLogic
 		public int PersonId { get; set; }
 		public Person PersonInfo { get; set; }
 
+		public User()
+		{
+
+		}
+
 		private User(int id, string userName, string password, int personId)
 		{
 			Id = id;

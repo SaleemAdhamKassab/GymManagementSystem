@@ -91,8 +91,8 @@
             tcProducts.Location = new Point(1, 0);
             tcProducts.Name = "tcProducts";
             tcProducts.SelectedIndex = 0;
-            tcProducts.Size = new Size(689, 527);
-            tcProducts.TabIndex = 1;
+            tcProducts.Size = new Size(747, 527);
+            tcProducts.TabIndex = 7;
             // 
             // tpClientOrder
             // 
@@ -122,7 +122,7 @@
             tpClientOrder.Location = new Point(4, 29);
             tpClientOrder.Name = "tpClientOrder";
             tpClientOrder.Padding = new Padding(3);
-            tpClientOrder.Size = new Size(681, 494);
+            tpClientOrder.Size = new Size(739, 494);
             tpClientOrder.TabIndex = 0;
             tpClientOrder.Text = "Client Order";
             tpClientOrder.UseVisualStyleBackColor = true;
@@ -133,7 +133,7 @@
             pnlProductPriceInfo.Controls.Add(lblTotalPriceAfterDiscountVal);
             pnlProductPriceInfo.Controls.Add(lblTotalPriceVal);
             pnlProductPriceInfo.Controls.Add(lblTotalPriceAfterDiscount);
-            pnlProductPriceInfo.Location = new Point(403, 363);
+            pnlProductPriceInfo.Location = new Point(479, 366);
             pnlProductPriceInfo.Name = "pnlProductPriceInfo";
             pnlProductPriceInfo.Size = new Size(216, 84);
             pnlProductPriceInfo.TabIndex = 29;
@@ -239,7 +239,7 @@
             // 
             lblPriceAterDiscountVal.AutoSize = true;
             lblPriceAterDiscountVal.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblPriceAterDiscountVal.Location = new Point(547, 331);
+            lblPriceAterDiscountVal.Location = new Point(623, 334);
             lblPriceAterDiscountVal.Name = "lblPriceAterDiscountVal";
             lblPriceAterDiscountVal.Size = new Size(19, 20);
             lblPriceAterDiscountVal.TabIndex = 23;
@@ -250,7 +250,7 @@
             // 
             lblPriceAfterDiscountTxt.AutoSize = true;
             lblPriceAfterDiscountTxt.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblPriceAfterDiscountTxt.Location = new Point(417, 331);
+            lblPriceAfterDiscountTxt.Location = new Point(493, 334);
             lblPriceAfterDiscountTxt.Name = "lblPriceAfterDiscountTxt";
             lblPriceAfterDiscountTxt.Size = new Size(130, 20);
             lblPriceAfterDiscountTxt.TabIndex = 22;
@@ -264,8 +264,8 @@
             cbCategories.FormattingEnabled = true;
             cbCategories.Location = new Point(130, 88);
             cbCategories.Name = "cbCategories";
-            cbCategories.Size = new Size(197, 28);
-            cbCategories.TabIndex = 3;
+            cbCategories.Size = new Size(292, 28);
+            cbCategories.TabIndex = 1;
             cbCategories.SelectedIndexChanged += cbCategories_SelectedIndexChanged;
             cbCategories.Validating += cbCategories_Validating;
             // 
@@ -288,7 +288,7 @@
             btnAddToCart.Location = new Point(30, 417);
             btnAddToCart.Name = "btnAddToCart";
             btnAddToCart.Size = new Size(75, 59);
-            btnAddToCart.TabIndex = 7;
+            btnAddToCart.TabIndex = 6;
             btnAddToCart.UseVisualStyleBackColor = true;
             btnAddToCart.Click += btnAddToCart_Click;
             // 
@@ -317,17 +317,16 @@
             // 
             nudDiscount.Location = new Point(130, 240);
             nudDiscount.Name = "nudDiscount";
-            nudDiscount.Size = new Size(197, 26);
-            nudDiscount.TabIndex = 6;
+            nudDiscount.Size = new Size(292, 26);
+            nudDiscount.TabIndex = 4;
             nudDiscount.ValueChanged += nudDiscount_ValueChanged;
             // 
             // cbClients
             // 
-            cbClients.DropDownStyle = ComboBoxStyle.DropDownList;
             cbClients.FormattingEnabled = true;
             cbClients.Location = new Point(130, 34);
             cbClients.Name = "cbClients";
-            cbClients.Size = new Size(197, 28);
+            cbClients.Size = new Size(292, 28);
             cbClients.TabIndex = 0;
             cbClients.SelectedIndexChanged += cbClients_SelectedIndexChanged;
             cbClients.Validating += cbClients_Validating;
@@ -344,8 +343,8 @@
             // 
             // pbProductImage
             // 
-            pbProductImage.Image = Properties.Resources.Add_category;
-            pbProductImage.Location = new Point(392, 34);
+            pbProductImage.Image = Properties.Resources.images;
+            pbProductImage.Location = new Point(468, 37);
             pbProductImage.Name = "pbProductImage";
             pbProductImage.Size = new Size(250, 232);
             pbProductImage.SizeMode = PictureBoxSizeMode.Zoom;
@@ -356,7 +355,7 @@
             // 
             lblOriginalPrice.AutoSize = true;
             lblOriginalPrice.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblOriginalPrice.Location = new Point(480, 297);
+            lblOriginalPrice.Location = new Point(556, 300);
             lblOriginalPrice.Name = "lblOriginalPrice";
             lblOriginalPrice.Size = new Size(19, 20);
             lblOriginalPrice.TabIndex = 6;
@@ -366,7 +365,7 @@
             // 
             label4.AutoSize = true;
             label4.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label4.Location = new Point(417, 297);
+            label4.Location = new Point(493, 300);
             label4.Name = "label4";
             label4.Size = new Size(54, 20);
             label4.TabIndex = 5;
@@ -389,8 +388,8 @@
             nudQuantity.Location = new Point(130, 188);
             nudQuantity.Maximum = new decimal(new int[] { 1000000, 0, 0, 0 });
             nudQuantity.Name = "nudQuantity";
-            nudQuantity.Size = new Size(197, 26);
-            nudQuantity.TabIndex = 5;
+            nudQuantity.Size = new Size(292, 26);
+            nudQuantity.TabIndex = 3;
             nudQuantity.ValueChanged += nudQuantity_ValueChanged;
             nudQuantity.Validating += nudQuantity_Validating;
             // 
@@ -411,8 +410,8 @@
             cbProducts.FormattingEnabled = true;
             cbProducts.Location = new Point(130, 138);
             cbProducts.Name = "cbProducts";
-            cbProducts.Size = new Size(197, 28);
-            cbProducts.TabIndex = 4;
+            cbProducts.Size = new Size(292, 28);
+            cbProducts.TabIndex = 2;
             cbProducts.SelectedIndexChanged += cbProducts_SelectedIndexChanged;
             cbProducts.Validating += cbProducts_Validating;
             // 
@@ -429,7 +428,7 @@
             tpCart.Location = new Point(4, 24);
             tpCart.Name = "tpCart";
             tpCart.Padding = new Padding(3);
-            tpCart.Size = new Size(681, 499);
+            tpCart.Size = new Size(739, 499);
             tpCart.TabIndex = 1;
             tpCart.Text = "Cart";
             tpCart.UseVisualStyleBackColor = true;
@@ -438,7 +437,7 @@
             // 
             label12.AutoSize = true;
             label12.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label12.Location = new Point(227, 415);
+            label12.Location = new Point(257, 418);
             label12.Name = "label12";
             label12.Size = new Size(121, 20);
             label12.TabIndex = 22;
@@ -449,7 +448,7 @@
             // 
             lblTotalAmountCart.AutoSize = true;
             lblTotalAmountCart.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblTotalAmountCart.Location = new Point(354, 415);
+            lblTotalAmountCart.Location = new Point(384, 418);
             lblTotalAmountCart.Name = "lblTotalAmountCart";
             lblTotalAmountCart.Size = new Size(29, 20);
             lblTotalAmountCart.TabIndex = 23;
@@ -459,7 +458,7 @@
             // 
             label14.AutoSize = true;
             label14.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label14.Location = new Point(441, 415);
+            label14.Location = new Point(471, 418);
             label14.Name = "label14";
             label14.Size = new Size(130, 20);
             label14.TabIndex = 24;
@@ -470,7 +469,7 @@
             // 
             lblAfterDiscountCart.AutoSize = true;
             lblAfterDiscountCart.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblAfterDiscountCart.Location = new Point(571, 415);
+            lblAfterDiscountCart.Location = new Point(601, 418);
             lblAfterDiscountCart.Name = "lblAfterDiscountCart";
             lblAfterDiscountCart.Size = new Size(29, 20);
             lblAfterDiscountCart.TabIndex = 25;
@@ -480,7 +479,7 @@
             // 
             lblRecordsCount.AutoSize = true;
             lblRecordsCount.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblRecordsCount.Location = new Point(101, 415);
+            lblRecordsCount.Location = new Point(131, 418);
             lblRecordsCount.Name = "lblRecordsCount";
             lblRecordsCount.Size = new Size(36, 20);
             lblRecordsCount.TabIndex = 4;
@@ -491,7 +490,7 @@
             // 
             label5.AutoSize = true;
             label5.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label5.Location = new Point(21, 415);
+            label5.Location = new Point(51, 418);
             label5.Name = "label5";
             label5.Size = new Size(74, 20);
             label5.TabIndex = 3;
@@ -500,13 +499,13 @@
             // 
             // label1
             // 
-            label1.AutoSize = true;
             label1.Font = new Font("Microsoft Sans Serif", 21.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label1.Location = new Point(244, 21);
+            label1.Location = new Point(7, 25);
             label1.Name = "label1";
-            label1.Size = new Size(180, 33);
+            label1.Size = new Size(726, 33);
             label1.TabIndex = 1;
             label1.Text = "Cart Details";
+            label1.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // dgvCartDetails
             // 
@@ -516,7 +515,7 @@
             dgvCartDetails.BackgroundColor = Color.White;
             dgvCartDetails.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvCartDetails.ContextMenuStrip = contextMenuStrip1;
-            dgvCartDetails.Location = new Point(7, 105);
+            dgvCartDetails.Location = new Point(37, 108);
             dgvCartDetails.Name = "dgvCartDetails";
             dgvCartDetails.ReadOnly = true;
             dgvCartDetails.Size = new Size(667, 292);
@@ -541,7 +540,7 @@
             btnSave.FlatStyle = FlatStyle.Popup;
             btnSave.Image = Properties.Resources.Save_32;
             btnSave.ImageAlign = ContentAlignment.MiddleLeft;
-            btnSave.Location = new Point(547, 533);
+            btnSave.Location = new Point(611, 533);
             btnSave.Name = "btnSave";
             btnSave.Size = new Size(133, 39);
             btnSave.TabIndex = 8;
@@ -554,7 +553,7 @@
             btnClose.FlatStyle = FlatStyle.Popup;
             btnClose.Image = Properties.Resources.Close_32;
             btnClose.ImageAlign = ContentAlignment.MiddleLeft;
-            btnClose.Location = new Point(408, 533);
+            btnClose.Location = new Point(472, 533);
             btnClose.Name = "btnClose";
             btnClose.Size = new Size(133, 39);
             btnClose.TabIndex = 9;
@@ -571,7 +570,7 @@
             AutoScaleDimensions = new SizeF(9F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             CancelButton = btnClose;
-            ClientSize = new Size(692, 584);
+            ClientSize = new Size(760, 584);
             Controls.Add(btnClose);
             Controls.Add(tcProducts);
             Controls.Add(btnSave);

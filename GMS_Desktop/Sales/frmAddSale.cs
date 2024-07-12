@@ -39,10 +39,10 @@ namespace GMS_Desktop
 
             DataTable dt = client.get(string.Empty);
 
-            foreach (DataRow row in dt.Rows)
-            {
-                cbClients.Items.Add(row["FullName"]);
-            }
+            cbClients.DataSource = dt;
+            cbClients.DisplayMember = "FullName";
+            cbClients.AutoCompleteMode = AutoCompleteMode.Suggest;
+            cbClients.AutoCompleteSource = AutoCompleteSource.ListItems;
         }
 
         private void _FillComboBoxWithCategories()
@@ -73,7 +73,7 @@ namespace GMS_Desktop
             _FillComboBoxWithClientNames();
             _FillComboBoxWithCategories();
             _ResetDefaultValues();
-            InitializeDataGridView();
+            _InitializeDataGridView();
         }
 
 
@@ -231,7 +231,7 @@ namespace GMS_Desktop
             cbProducts.Items.Clear();
             nudQuantity.Value = 0;
             nudDiscount.Value = 0;
-            pbProductImage.Image = Resources.Add_category;
+            pbProductImage.Image = Resources.images;
             lblOriginalPrice.Text = "0$";
             pnlProductPriceInfo.Visible = false;
         }
@@ -247,7 +247,7 @@ namespace GMS_Desktop
             return true;
         }
 
-        private void InitializeDataGridView()
+        private void _InitializeDataGridView()
         {
             dgvCartDetails.Columns.Add("ProductName", "Product Name");
             dgvCartDetails.Columns.Add("Quantity", "Quantity");
@@ -317,7 +317,7 @@ namespace GMS_Desktop
             nudQuantity.Value = 0;
             cbProducts.SelectedIndex = -1;
             cbCategories.SelectedIndex = -1;
-            pbProductImage.Image = Resources.Add_category;
+            pbProductImage.Image = Resources.images;
             lblOriginalPrice.Text = "0$";
             lblPriceAfterDiscountTxt.Visible = false;
             lblPriceAterDiscountVal.Text = "0$";
@@ -349,10 +349,12 @@ namespace GMS_Desktop
             _SaleOrder.Amount = _TotalAmount;
 
             string fullName = cbClients.Text.Trim();
-            string firstName = fullName.Split(' ')[0];
-            string lastName = fullName.Split(' ')[1];
+            //string firstName = fullName.Split(' ')[0];
+            //string secondName = fullName.Split(' ')[1];
+            //string thirdName = fullName.Split(' ')[2];
+            //string lastName = fullName.Split(' ')[3];
 
-            Client client = Client.find(firstName, lastName);
+            Client client = Client.find(fullName);
             if (client == null)
             {
                 MessageBox.Show("The client is not found!", "Error",
@@ -360,7 +362,7 @@ namespace GMS_Desktop
                 return;
             }
 
-            _ClientId = client.Id;
+            _ClientId = client.ClientId;
             _SaleOrder.ClientId = _ClientId;
             _SaleOrder.UserId = 1;
             _SaleOrder.AmountAfterDiscount = _TotalAmountAfterDiscount;
@@ -383,8 +385,8 @@ namespace GMS_Desktop
                 if (saleOrderViewModel.OutOfStockProducts.Count > 0)
                 {
                     string product = string.Empty;
-                    
-                    foreach(string productName in  saleOrderViewModel.OutOfStockProducts)
+
+                    foreach (string productName in saleOrderViewModel.OutOfStockProducts)
                     {
                         product = string.Join(",", saleOrderViewModel.OutOfStockProducts);
                     }
@@ -407,7 +409,7 @@ namespace GMS_Desktop
             cbProducts.SelectedIndex = -1;
             nudQuantity.Value = 0;
             nudDiscount.Value = 0;
-            pbProductImage.Image = Resources.Add_category;
+            pbProductImage.Image = Resources.images;
             lblRecordsCount.Text = "0";
             lblTotalAmountAfterDiscount.Text = "0$";
             lblTotalAmountAfterDiscount.Visible = false;
@@ -485,5 +487,6 @@ namespace GMS_Desktop
                 errorProvider1.SetError(nudQuantity, null);
             }
         }
+
     }
 }

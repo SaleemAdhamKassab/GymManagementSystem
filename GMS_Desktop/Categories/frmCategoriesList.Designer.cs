@@ -125,7 +125,7 @@
             // 
             // btnAddCategory
             // 
-            btnAddCategory.BackgroundImage = Properties.Resources.Add_category;
+            btnAddCategory.BackgroundImage = Properties.Resources.images;
             btnAddCategory.BackgroundImageLayout = ImageLayout.Zoom;
             btnAddCategory.Location = new Point(391, 119);
             btnAddCategory.Name = "btnAddCategory";
