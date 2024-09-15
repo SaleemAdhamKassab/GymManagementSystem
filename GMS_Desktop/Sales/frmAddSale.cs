@@ -49,7 +49,7 @@ namespace GMS_Desktop
         {
             Category category = new Category();
 
-            DataTable dt = category.get(string.Empty);
+            DataTable dt = category.getClientCategoriesInfo();
 
             foreach (DataRow row in dt.Rows)
             {

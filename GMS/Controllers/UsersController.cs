@@ -31,7 +31,7 @@ namespace GMS.Controllers
 		//Edit
 		public IActionResult edit(int id)
 		{
-			User user = GMS_BusinessLogic.User.find(id);
+			User user = GMS_BusinessLogic.User.findByUserId(id);
 			if (User is null)
 				return NotFound($"Invalid User Id: {id}");
 
@@ -45,7 +45,7 @@ namespace GMS.Controllers
 			if (user is null)
 				return NotFound($"Empty User");
 
-			User userToUpdate = GMS_BusinessLogic.User.find(user.Id);
+			User userToUpdate = GMS_BusinessLogic.User.findByUserId(user.Id);
 
 			try
 			{
@@ -63,7 +63,7 @@ namespace GMS.Controllers
 		//Delete
 		public IActionResult delete(int id)
 		{
-			User User = User.find(id);
+			User User = User.findByUserId(id);
 			if (User is null)
 				return NotFound($"Invalid User Id: {id}");
 

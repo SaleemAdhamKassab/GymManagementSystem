@@ -70,5 +70,10 @@ namespace GMS_BusinessLogic
         => MembershipData.delete(obj.Id);
 
         public DataTable get() => MembershipData.get();
+        public DataTable getDetailsOfClassSubscriptionsByMembershipId(Membership obj)
+        => MembershipData.getDetailsOfClassSubscriptionsByMembershipId(obj.Id);
+
+        public Dictionary<string, int> numberOfMembershipsInCategories()
+        => MembershipData.numberOfMembershipsToCategories();
     }
 }

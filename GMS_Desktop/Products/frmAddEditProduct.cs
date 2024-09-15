@@ -2,13 +2,9 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using GMS_BusinessLogic;
 using GMS_BusinessLogic.Categories;
+using GMS_Desktop.Properties;
 
 namespace GMS_Desktop
 {
@@ -92,9 +88,18 @@ namespace GMS_Desktop
                     cbCategories.SelectedIndex = cbCategories.FindString(_category.Name);
 
 
-                lblProductID.Text = _product.Id.ToString();
                 txtName.Text = _product.Name;
-                nudQuantity.Value = _product.Quantity;
+                nudPriceWithProfit.Value = (decimal)_product.PriceWithProfit;
+                if (_product.ImagePath != null)
+                {
+                    pbProductImage.ImageLocation = _product.ImagePath;
+                    llRemove.Visible = true;
+                }
+                else
+                {
+                    pbProductImage.Image = Resources.Add_new_item;
+                    llRemove.Visible = false;
+                }
             }
         }
 
@@ -109,8 +114,17 @@ namespace GMS_Desktop
 
             _product = new Product();
             _product.Name = txtName.Text;
+            _product.PriceWithProfit = (double)nudPriceWithProfit.Value;
             _product.CategoryId = Category.find(cbCategories.Text).Id;
-            _product.Quantity = (short)nudQuantity.Value;
+
+            if (pbProductImage.Image == Resources.Add_new_item)
+            {
+                _product.ImagePath = null;
+            }
+            else
+            {
+                _product.ImagePath = pbProductImage.ImageLocation;
+            }
 
             _product.add(_product);
 
@@ -119,7 +133,7 @@ namespace GMS_Desktop
                 MessageBox.Show($"The product saved successfully in the system with Id = {_product.Id}", "Success",
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                lblProductID.Text = _product.Id.ToString();
+
                 this.Close();
             }
             else
@@ -133,16 +147,29 @@ namespace GMS_Desktop
 
         private void _Edit()
         {
-            _product.Name = txtName.Text; 
+            if (MessageBox.Show("Are you sure want to update this product ?", "Are you Sure?",
+                MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.Cancel)
+                return;
+
+            _product.Name = txtName.Text;
             _product.CategoryId = Category.find(cbCategories.Text).Id;
-            _product.Quantity = (short)nudQuantity.Value;
+            _product.PriceWithProfit = (double)nudPriceWithProfit.Value;
+
+            if (pbProductImage.Image == Resources.Add_new_item)
+            {
+                _product.ImagePath = null;
+            }
+            else
+            {
+                _product.ImagePath = pbProductImage.ImageLocation;
+            }
 
             if (_product.update(_product))
             {
                 MessageBox.Show($"The product saved successfully in the system with Id = {_product.Id}", "Success",
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                lblProductID.Text = _product.Id.ToString();
+
                 this.Close();
             }
             else
@@ -215,21 +242,43 @@ namespace GMS_Desktop
             }
         }
 
-        private void nudQuantity_Validating(object sender, CancelEventArgs e)
+        private void nudPriceWithProfit_Validating(object sender, CancelEventArgs e)
         {
-            if (nudQuantity.Value < 1)
+            if (_product != null && (double)nudPriceWithProfit.Value < _product.Price)
             {
                 System.Media.SystemSounds.Beep.Play();
-                nudQuantity.Focus();
+                nudPriceWithProfit.Focus();
                 e.Cancel = true;
-                errorProvider1.SetError(nudQuantity, "The product quintity should be one or more.");
+                errorProvider1.SetError(nudPriceWithProfit, "The product price should be greater than original price.");
+
             }
             else
             {
                 btnSave.Enabled = true;
                 e.Cancel = false;
-                errorProvider1.SetError(nudQuantity, null);
+                errorProvider1.SetError(nudPriceWithProfit, null);
             }
+        }
+
+        private void llSetImage_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            openFileDialog1.Filter = "Image Files|*.jpg;*.jpeg;*.png;*.gif;*.bmp";
+            openFileDialog1.FilterIndex = 1;
+            openFileDialog1.RestoreDirectory = true;
+
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                string selectedFilePath = openFileDialog1.FileName;
+                pbProductImage.Load(selectedFilePath);
+                llRemove.Visible = true;
+            }
+
+        }
+
+        private void llRemove_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            pbProductImage.Image = Resources.Add_new_item;
+            llRemove.Visible = false;
         }
     }
 }

@@ -40,13 +40,28 @@ namespace GMS_BusinessLogic
             else return null;
         }
 
-        public int add(ClassCategory classCategory) => ClassCategoriesData.add(classCategory.Name);
+        public static ClassCategory find(string name)
+        {
+            int id = -1;
+
+            if (ClassCategoriesData.getCategoryClassInfoByName(ref id, name))
+            {
+                return new ClassCategory(id, name);
+            }
+
+            else return null;
+        }
+
+        public int add(ClassCategory classCategory) 
+        => classCategory.Id = ClassCategoriesData.add(classCategory.Name);
 
         public bool update(ClassCategory classCategory) => ClassCategoriesData.update(classCategory.Id, classCategory.Name);
 
+        public bool delete(int Id) => ClassCategoriesData.delete(Id);
+
         public DataTable get() => ClassCategoriesData.get();
 
-        public DataTable getClassTypesByClassCategorName(string categoryName)
+        public DataTable getClassTypesByClassCategoryName(string categoryName)
         => ClassCategoriesData.getClassTypesByClassCategorName(categoryName);
     }
 }

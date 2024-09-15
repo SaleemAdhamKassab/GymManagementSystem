@@ -21,7 +21,7 @@ namespace GMS_BusinessLogic
             FreezeStartDate = freezeStartDate;
             FreezeEndDate = freezeEndDate;
             ClassSubscriptionId = classSubscriptionId;
-            ClassSubscriptionInfo = ClassSubscription.find(classSubscriptionId);
+            ClassSubscriptionInfo = ClassSubscription.findById(classSubscriptionId);
 
             _Mode = enMode.Update;
         }

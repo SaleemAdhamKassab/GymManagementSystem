@@ -1,6 +1,5 @@
 ﻿using System.Data;
 using GMS_DataAccess;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace GMS_BusinessLogic
 {
@@ -33,7 +32,7 @@ namespace GMS_BusinessLogic
 			TotalAmount = totalAmount;
 			Discount = discount;
 			UserId = userId;
-			UserInfo = User.find(UserId);
+			UserInfo = User.findByUserId(UserId);
 			SupplierId = supplierId;
 			SupplierInfo = Supplier.find(SupplierId);
 		}

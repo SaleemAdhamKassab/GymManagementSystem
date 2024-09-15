@@ -149,5 +149,43 @@ namespace GMS_DataAccess
 
             return result;
         }
+
+        public static decimal getTheProfitsOfSales()
+        {
+            decimal profits = 0.0m;
+
+            using (SqlConnection connection = new SqlConnection(DataAccessSettings.ConnectionString))
+            {
+                connection.Open();
+                string query = @"WITH OrdersDetailed AS
+                                (
+                                    SELECT SalesOrders.ClientId, SalesOrderId, 
+                                           CONCAT(Persons.FirstName, ' ', Persons.SecondName, ' ', Persons.ThirdName, ' ', Persons.LastName) AS ClientName,
+                                           SaleOrderProducts.ProductID, Products.Name AS ProductName, 
+                                           SaleOrderProducts.Quantity, SaleOrderProducts.Price AS PriceSale, 
+                                           SaleOrderProducts.Discount, Products.Price AS OriginalPriceFromSuplier,
+                                           Products.PriceWithProfit
+                                    FROM SaleOrderProducts
+                                    INNER JOIN SalesOrders ON SaleOrderProducts.SalesOrderId = SalesOrders.Id
+                                    INNER JOIN Clients ON SalesOrders.ClientId = Clients.Id
+                                    INNER JOIN Persons ON Clients.PersonId = Persons.Id
+                                    INNER JOIN Products ON SaleOrderProducts.ProductID = Products.Id
+                                )
+                                SELECT SUM((OrdersDetailed.PriceSale - COALESCE(OrdersDetailed.Discount, 0) - OrdersDetailed.OriginalPriceFromSuplier) * OrdersDetailed.Quantity) AS TotalProfit
+                                FROM OrdersDetailed;";
+
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    object result = command.ExecuteScalar();
+
+                    if (result != null && decimal.TryParse(result.ToString(), out decimal profitInserted))
+                    {
+                        profits = profitInserted;
+                    }
+                }
+
+                return profits;
+            }
+        }
     }
 }

@@ -47,11 +47,12 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Font = new Font("Microsoft Sans Serif", 20F);
+            label1.Font = new Font("Microsoft Sans Serif", 21.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label1.ForeColor = Color.Blue;
-            label1.Location = new Point(128, 32);
+            label1.Location = new Point(139, 27);
+            label1.Margin = new Padding(4, 0, 4, 0);
             label1.Name = "label1";
-            label1.Size = new Size(196, 31);
+            label1.Size = new Size(210, 33);
             label1.TabIndex = 1;
             label1.Text = "Categories List";
             // 
@@ -64,10 +65,11 @@
             dgvCategoriesList.BorderStyle = BorderStyle.None;
             dgvCategoriesList.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvCategoriesList.ContextMenuStrip = contextMenuStrip1;
-            dgvCategoriesList.Location = new Point(59, 173);
+            dgvCategoriesList.Location = new Point(66, 192);
+            dgvCategoriesList.Margin = new Padding(4);
             dgvCategoriesList.Name = "dgvCategoriesList";
             dgvCategoriesList.ReadOnly = true;
-            dgvCategoriesList.Size = new Size(295, 250);
+            dgvCategoriesList.Size = new Size(362, 268);
             dgvCategoriesList.TabIndex = 2;
             // 
             // contextMenuStrip1
@@ -94,30 +96,34 @@
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label2.Location = new Point(23, 453);
+            label2.Location = new Point(13, 510);
+            label2.Margin = new Padding(4, 0, 4, 0);
             label2.Name = "label2";
-            label2.Size = new Size(81, 20);
+            label2.Size = new Size(96, 20);
             label2.TabIndex = 3;
-            label2.Text = "Records:";
+            label2.Text = "# Records:";
             // 
             // lblNumberOfCategories
             // 
             lblNumberOfCategories.AutoSize = true;
-            lblNumberOfCategories.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblNumberOfCategories.Location = new Point(110, 456);
+            lblNumberOfCategories.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblNumberOfCategories.Location = new Point(117, 510);
+            lblNumberOfCategories.Margin = new Padding(4, 0, 4, 0);
             lblNumberOfCategories.Name = "lblNumberOfCategories";
-            lblNumberOfCategories.Size = new Size(14, 16);
+            lblNumberOfCategories.Size = new Size(18, 20);
             lblNumberOfCategories.TabIndex = 4;
-            lblNumberOfCategories.Text = "#";
+            lblNumberOfCategories.Text = "?";
             // 
             // button1
             // 
+            button1.FlatStyle = FlatStyle.Popup;
             button1.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             button1.Image = Properties.Resources.Close_32;
             button1.ImageAlign = ContentAlignment.MiddleLeft;
-            button1.Location = new Point(306, 443);
+            button1.Location = new Point(332, 497);
+            button1.Margin = new Padding(4);
             button1.Name = "button1";
-            button1.Size = new Size(122, 35);
+            button1.Size = new Size(157, 47);
             button1.TabIndex = 5;
             button1.Text = "Close";
             button1.UseVisualStyleBackColor = true;
@@ -127,38 +133,41 @@
             // 
             btnAddCategory.BackgroundImage = Properties.Resources.images;
             btnAddCategory.BackgroundImageLayout = ImageLayout.Zoom;
-            btnAddCategory.Location = new Point(391, 119);
+            btnAddCategory.Location = new Point(429, 111);
+            btnAddCategory.Margin = new Padding(4);
             btnAddCategory.Name = "btnAddCategory";
-            btnAddCategory.Size = new Size(34, 36);
+            btnAddCategory.Size = new Size(60, 58);
             btnAddCategory.TabIndex = 6;
             btnAddCategory.UseVisualStyleBackColor = true;
             btnAddCategory.Click += btnAddCategory_Click;
             // 
             // txtFindByID_Name
             // 
-            txtFindByID_Name.Font = new Font("Microsoft Sans Serif", 12F);
-            txtFindByID_Name.Location = new Point(20, 119);
+            txtFindByID_Name.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            txtFindByID_Name.Location = new Point(13, 127);
+            txtFindByID_Name.Margin = new Padding(4);
             txtFindByID_Name.Name = "txtFindByID_Name";
-            txtFindByID_Name.Size = new Size(174, 26);
+            txtFindByID_Name.Size = new Size(223, 26);
             txtFindByID_Name.TabIndex = 8;
             txtFindByID_Name.TextChanged += txtFindByID_Name_TextChanged;
             // 
             // label4
             // 
             label4.AutoSize = true;
-            label4.Font = new Font("Microsoft Sans Serif", 10F);
-            label4.Location = new Point(19, 100);
+            label4.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label4.Location = new Point(11, 101);
+            label4.Margin = new Padding(4, 0, 4, 0);
             label4.Name = "label4";
-            label4.Size = new Size(96, 17);
+            label4.Size = new Size(108, 20);
             label4.TabIndex = 9;
             label4.Text = "Find Category";
             // 
             // frmCategoriesList
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(9F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             CancelButton = button1;
-            ClientSize = new Size(437, 490);
+            ClientSize = new Size(498, 548);
             Controls.Add(label4);
             Controls.Add(txtFindByID_Name);
             Controls.Add(btnAddCategory);
@@ -167,8 +176,9 @@
             Controls.Add(label2);
             Controls.Add(dgvCategoriesList);
             Controls.Add(label1);
-            Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             FormBorderStyle = FormBorderStyle.FixedToolWindow;
+            Margin = new Padding(4);
             Name = "frmCategoriesList";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Categories List";

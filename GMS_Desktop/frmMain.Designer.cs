@@ -30,19 +30,24 @@
         {
             menuStrip1 = new MenuStrip();
             categoriesToolStripMenuItem = new ToolStripMenuItem();
+            manageCategoriesToolStripMenuItem = new ToolStripMenuItem();
             productToolStripMenuItem = new ToolStripMenuItem();
             purchasesToolStripMenuItem = new ToolStripMenuItem();
             salesToolStripMenuItem = new ToolStripMenuItem();
             clentsToolStripMenuItem = new ToolStripMenuItem();
             memberToolStripMenuItem = new ToolStripMenuItem();
-            label1 = new Label();
             offersToolStripMenuItem = new ToolStripMenuItem();
+            coachToolStripMenuItem = new ToolStripMenuItem();
+            userToolStripMenuItem = new ToolStripMenuItem();
+            label1 = new Label();
+            reportsToolStripMenuItem = new ToolStripMenuItem();
             menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
             // menuStrip1
             // 
-            menuStrip1.Items.AddRange(new ToolStripItem[] { categoriesToolStripMenuItem, productToolStripMenuItem, purchasesToolStripMenuItem, salesToolStripMenuItem, clentsToolStripMenuItem, memberToolStripMenuItem, offersToolStripMenuItem });
+            menuStrip1.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            menuStrip1.Items.AddRange(new ToolStripItem[] { categoriesToolStripMenuItem, manageCategoriesToolStripMenuItem, productToolStripMenuItem, purchasesToolStripMenuItem, salesToolStripMenuItem, clentsToolStripMenuItem, memberToolStripMenuItem, offersToolStripMenuItem, coachToolStripMenuItem, userToolStripMenuItem, reportsToolStripMenuItem });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
             menuStrip1.Size = new Size(1029, 28);
@@ -58,6 +63,13 @@
             categoriesToolStripMenuItem.Size = new Size(98, 24);
             categoriesToolStripMenuItem.Text = "Categories";
             categoriesToolStripMenuItem.Click += categoriesToolStripMenuItem_Click_3;
+            // 
+            // manageCategoriesToolStripMenuItem
+            // 
+            manageCategoriesToolStripMenuItem.Name = "manageCategoriesToolStripMenuItem";
+            manageCategoriesToolStripMenuItem.Size = new Size(139, 24);
+            manageCategoriesToolStripMenuItem.Text = "Manage Classes";
+            manageCategoriesToolStripMenuItem.Click += manageCategoriesToolStripMenuItem_Click;
             // 
             // productToolStripMenuItem
             // 
@@ -101,6 +113,27 @@
             memberToolStripMenuItem.Text = "Memberships";
             memberToolStripMenuItem.Click += memberToolStripMenuItem_Click;
             // 
+            // offersToolStripMenuItem
+            // 
+            offersToolStripMenuItem.Name = "offersToolStripMenuItem";
+            offersToolStripMenuItem.Size = new Size(65, 24);
+            offersToolStripMenuItem.Text = "Offers";
+            offersToolStripMenuItem.Click += offersToolStripMenuItem_Click;
+            // 
+            // coachToolStripMenuItem
+            // 
+            coachToolStripMenuItem.Name = "coachToolStripMenuItem";
+            coachToolStripMenuItem.Size = new Size(67, 24);
+            coachToolStripMenuItem.Text = "Coach";
+            coachToolStripMenuItem.Click += coachToolStripMenuItem_Click;
+            // 
+            // userToolStripMenuItem
+            // 
+            userToolStripMenuItem.Name = "userToolStripMenuItem";
+            userToolStripMenuItem.Size = new Size(55, 24);
+            userToolStripMenuItem.Text = "User";
+            userToolStripMenuItem.Click += userToolStripMenuItem_Click;
+            // 
             // label1
             // 
             label1.AutoSize = true;
@@ -111,11 +144,12 @@
             label1.TabIndex = 1;
             label1.Text = "Welcome";
             // 
-            // offersToolStripMenuItem
+            // reportsToolStripMenuItem
             // 
-            offersToolStripMenuItem.Name = "offersToolStripMenuItem";
-            offersToolStripMenuItem.Size = new Size(51, 24);
-            offersToolStripMenuItem.Text = "Offers";
+            reportsToolStripMenuItem.Name = "reportsToolStripMenuItem";
+            reportsToolStripMenuItem.Size = new Size(78, 24);
+            reportsToolStripMenuItem.Text = "Reports";
+            reportsToolStripMenuItem.Click += reportsToolStripMenuItem_Click;
             // 
             // frmMain
             // 
@@ -131,6 +165,7 @@
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Main Screen";
             WindowState = FormWindowState.Maximized;
+            FormClosing += frmMain_FormClosing;
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();
             ResumeLayout(false);
@@ -148,5 +183,9 @@
         private ToolStripMenuItem clentsToolStripMenuItem;
         private ToolStripMenuItem memberToolStripMenuItem;
         private ToolStripMenuItem offersToolStripMenuItem;
+        private ToolStripMenuItem manageCategoriesToolStripMenuItem;
+        private ToolStripMenuItem coachToolStripMenuItem;
+        private ToolStripMenuItem userToolStripMenuItem;
+        private ToolStripMenuItem reportsToolStripMenuItem;
     }
 }

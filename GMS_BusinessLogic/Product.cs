@@ -72,7 +72,7 @@ namespace GMS_BusinessLogic
 		public int add(Product product) => this.Id = ProductData.add(product.Name, product.Quantity, product.Price, product.PriceWithProfit, product.CategoryId, product.ImagePath);
 		public DataTable get(string searchString) => ProductData.get(searchString);
 		public static DataTable get() => ProductData.get();
-		public DataTable getProductsByItem(int categryId) => ProductData.getProductsByItem(categryId);
+		public DataTable getProductsByItem(int categryId) => ProductData.getProductsByCategory(categryId);
 		public bool update(Product product) => ProductData.update(product.Id, product.Name, product.Quantity, product.Price, product.PriceWithProfit, product.CategoryId, product.ImagePath);
 		public bool delete(int id) => ProductData.delete(id);
 	}

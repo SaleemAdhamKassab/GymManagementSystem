@@ -100,12 +100,24 @@ namespace GMS_DataAccess
 			return CRUD.getUsingDateTable($"SELECT * FROM Products where lower(name) like '%{searchString}%' order by name");
 		}
 		public static DataTable get() => CRUD.getUsingDateTable("SELECT * FROM Products");
-		public static DataTable getProductsByItem(int categoryId) => 
+		public static DataTable getProductsByCategory(int categoryId) => 
 		CRUD.getUsingDateTable($"SELECT Products.Id, Products.Name, Products.Quantity FROM Products INNER JOIN Categories ON Products.CategoryId = Categories.Id WHERE Categories.Id = {categoryId}");
 		public static int add(string name, int quantity, double price, double priceWithProfit, int categoryId, string imagePath) =>
-		CRUD.add($"INSERT INTO Products (Name, Quantity, Price, PriceWithProfit, CategoryId, ImagePath) VALUES ('{name.Trim()}', {quantity}, {price}, {priceWithProfit}, {categoryId}, {imagePath}); SELECT SCOPE_IDENTITY();");
-		public static bool update(int id, string name, int quantity, double price, double priceWithProfit, int categoryId, string imagePath) =>
-		CRUD.executeNonQuery($"UPDATE Products SET Name = '{name.Trim()}', Quantity = {quantity}, Price = {price}, PriceWithProfit = {priceWithProfit}, CategoryId = {categoryId}, ImagePath = {imagePath} WHERE Id = {id}");
+		CRUD.add($@"INSERT INTO Products (Name, Quantity, Price, PriceWithProfit, CategoryId, ImagePath)
+					VALUES ('{name.Trim()}', {quantity}, {price}, {priceWithProfit}, {categoryId}, '{imagePath}');
+					SELECT SCOPE_IDENTITY();");
+		
+		public static bool update(int id, string name, int quantity,
+			double price, double priceWithProfit, int categoryId, string imagePath) =>
+		CRUD.executeNonQuery($@"UPDATE Products 
+								SET Name = '{name.Trim()}', 
+									Quantity = {quantity}, 
+									Price = {price}, 
+									PriceWithProfit = {priceWithProfit},
+									CategoryId = {categoryId}, 
+									ImagePath = '{imagePath}' 
+									WHERE Id = {id}");
+
 		public static bool delete(int id) => CRUD.executeNonQuery($"DELETE Products WHERE Id = {id}");
 	}
 }

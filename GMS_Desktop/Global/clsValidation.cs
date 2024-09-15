@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Text.RegularExpressions;
 
-namespace GMS_Desktop
+namespace GMS_Desktop.Global
 {
     public class clsValidation
     {
@@ -38,7 +38,16 @@ namespace GMS_Desktop
 
         public static bool IsNumber(string Number)
         {
-            return (ValidateInteger(Number) || ValidateFloat(Number));
+            return ValidateInteger(Number) || ValidateFloat(Number);
+        }
+
+        public static string EscapeSpecialCharacters(string input)
+        {
+            // Define a regular expression pattern to match a single quote
+            string pattern = @"'";
+
+            // Escape single quotes by replacing them with two single quotes
+            return Regex.Replace(input, pattern, "''");
         }
     }
 }

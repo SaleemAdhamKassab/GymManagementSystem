@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using GMS_BusinessLogic;
+using GMS_Desktop.Global;
 
 namespace GMS_Desktop
 {
@@ -142,7 +143,7 @@ namespace GMS_Desktop
         private void txtEmargencyPhone_Validating(object sender, CancelEventArgs e)
         {
             if (!string.IsNullOrEmpty(txtEmergencyName.Text) &&
-                !clsValidation.IsNumber(txtEmargencyPhone.Text))
+                !Global.clsValidation.IsNumber(txtEmargencyPhone.Text))
             {
                 e.Cancel = true;
                 errorProvider1.SetError(txtEmargencyPhone, "Invalid Number, you have to enter valid phone number");

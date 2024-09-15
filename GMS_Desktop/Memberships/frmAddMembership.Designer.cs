@@ -32,6 +32,12 @@
             label1 = new Label();
             tabControl1 = new TabControl();
             tabPage1 = new TabPage();
+            lblTotalAfterDiscount = new Label();
+            lblTotalAfterDiscountLabel = new Label();
+            lblAfterDiscount = new Label();
+            lblAfterDiscountLablel = new Label();
+            cbOffers = new ComboBox();
+            lblOffer = new Label();
             lblClientName = new Label();
             gbHealthInformation = new GroupBox();
             llHealthInforamtionLink = new LinkLabel();
@@ -56,6 +62,10 @@
             cbCategories = new ComboBox();
             label2 = new Label();
             tabPage2 = new TabPage();
+            lblAfterDisDetails = new Label();
+            lblAfterDisDetailsLabel = new Label();
+            lblTotalAmountDetails = new Label();
+            label16 = new Label();
             lblRecordsCount = new Label();
             label7 = new Label();
             dgvMembershipDetails = new DataGridView();
@@ -87,14 +97,20 @@
             // 
             tabControl1.Controls.Add(tabPage1);
             tabControl1.Controls.Add(tabPage2);
-            tabControl1.Location = new Point(0, 0);
+            tabControl1.Location = new Point(0, 3);
             tabControl1.Name = "tabControl1";
             tabControl1.SelectedIndex = 0;
-            tabControl1.Size = new Size(789, 642);
-            tabControl1.TabIndex = 3;
+            tabControl1.Size = new Size(1244, 639);
+            tabControl1.TabIndex = 7;
             // 
             // tabPage1
             // 
+            tabPage1.Controls.Add(lblTotalAfterDiscount);
+            tabPage1.Controls.Add(lblTotalAfterDiscountLabel);
+            tabPage1.Controls.Add(lblAfterDiscount);
+            tabPage1.Controls.Add(lblAfterDiscountLablel);
+            tabPage1.Controls.Add(cbOffers);
+            tabPage1.Controls.Add(lblOffer);
             tabPage1.Controls.Add(lblClientName);
             tabPage1.Controls.Add(gbHealthInformation);
             tabPage1.Controls.Add(cbPaymentMothods);
@@ -117,10 +133,74 @@
             tabPage1.Location = new Point(4, 29);
             tabPage1.Name = "tabPage1";
             tabPage1.Padding = new Padding(3);
-            tabPage1.Size = new Size(781, 609);
+            tabPage1.Size = new Size(1236, 606);
             tabPage1.TabIndex = 0;
             tabPage1.Text = "subscription";
             tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // lblTotalAfterDiscount
+            // 
+            lblTotalAfterDiscount.AutoSize = true;
+            lblTotalAfterDiscount.Location = new Point(155, 444);
+            lblTotalAfterDiscount.Name = "lblTotalAfterDiscount";
+            lblTotalAfterDiscount.Size = new Size(27, 20);
+            lblTotalAfterDiscount.TabIndex = 30;
+            lblTotalAfterDiscount.Text = "0$";
+            lblTotalAfterDiscount.Visible = false;
+            // 
+            // lblTotalAfterDiscountLabel
+            // 
+            lblTotalAfterDiscountLabel.AutoSize = true;
+            lblTotalAfterDiscountLabel.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblTotalAfterDiscountLabel.Location = new Point(19, 444);
+            lblTotalAfterDiscountLabel.Name = "lblTotalAfterDiscountLabel";
+            lblTotalAfterDiscountLabel.Size = new Size(130, 20);
+            lblTotalAfterDiscountLabel.TabIndex = 29;
+            lblTotalAfterDiscountLabel.Text = "After Discount:";
+            lblTotalAfterDiscountLabel.Visible = false;
+            // 
+            // lblAfterDiscount
+            // 
+            lblAfterDiscount.AutoSize = true;
+            lblAfterDiscount.Location = new Point(1084, 341);
+            lblAfterDiscount.Name = "lblAfterDiscount";
+            lblAfterDiscount.Size = new Size(27, 20);
+            lblAfterDiscount.TabIndex = 28;
+            lblAfterDiscount.Text = "0$";
+            lblAfterDiscount.Visible = false;
+            // 
+            // lblAfterDiscountLablel
+            // 
+            lblAfterDiscountLablel.AutoSize = true;
+            lblAfterDiscountLablel.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblAfterDiscountLablel.Location = new Point(948, 341);
+            lblAfterDiscountLablel.Name = "lblAfterDiscountLablel";
+            lblAfterDiscountLablel.Size = new Size(130, 20);
+            lblAfterDiscountLablel.TabIndex = 27;
+            lblAfterDiscountLablel.Text = "After Discount:";
+            lblAfterDiscountLablel.Visible = false;
+            // 
+            // cbOffers
+            // 
+            cbOffers.DropDownStyle = ComboBoxStyle.DropDownList;
+            cbOffers.FormattingEnabled = true;
+            cbOffers.Location = new Point(184, 353);
+            cbOffers.Name = "cbOffers";
+            cbOffers.Size = new Size(303, 28);
+            cbOffers.TabIndex = 6;
+            cbOffers.Visible = false;
+            cbOffers.SelectedIndexChanged += cbOffers_SelectedIndexChanged;
+            // 
+            // lblOffer
+            // 
+            lblOffer.AutoSize = true;
+            lblOffer.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Bold);
+            lblOffer.Location = new Point(19, 356);
+            lblOffer.Name = "lblOffer";
+            lblOffer.Size = new Size(64, 20);
+            lblOffer.TabIndex = 26;
+            lblOffer.Text = "Offers:";
+            lblOffer.Visible = false;
             // 
             // lblClientName
             // 
@@ -139,7 +219,7 @@
             gbHealthInformation.Controls.Add(rbYesHealthInfo);
             gbHealthInformation.Controls.Add(rbNoHealthInfo);
             gbHealthInformation.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            gbHealthInformation.Location = new Point(299, 429);
+            gbHealthInformation.Location = new Point(747, 429);
             gbHealthInformation.Name = "gbHealthInformation";
             gbHealthInformation.Size = new Size(474, 174);
             gbHealthInformation.TabIndex = 23;
@@ -237,7 +317,7 @@
             // lblClassFees
             // 
             lblClassFees.AutoSize = true;
-            lblClassFees.Location = new Point(641, 280);
+            lblClassFees.Location = new Point(1057, 306);
             lblClassFees.Name = "lblClassFees";
             lblClassFees.Size = new Size(27, 20);
             lblClassFees.TabIndex = 18;
@@ -247,7 +327,7 @@
             // 
             label10.AutoSize = true;
             label10.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label10.Location = new Point(532, 280);
+            label10.Location = new Point(948, 306);
             label10.Name = "label10";
             label10.Size = new Size(103, 20);
             label10.TabIndex = 17;
@@ -256,7 +336,7 @@
             // lblTotalAmount
             // 
             lblTotalAmount.AutoSize = true;
-            lblTotalAmount.Location = new Point(150, 355);
+            lblTotalAmount.Location = new Point(150, 413);
             lblTotalAmount.Name = "lblTotalAmount";
             lblTotalAmount.Size = new Size(27, 20);
             lblTotalAmount.TabIndex = 16;
@@ -266,7 +346,7 @@
             // 
             label8.AutoSize = true;
             label8.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label8.Location = new Point(19, 355);
+            label8.Location = new Point(19, 413);
             label8.Name = "label8";
             label8.Size = new Size(121, 20);
             label8.TabIndex = 15;
@@ -278,13 +358,14 @@
             nudDuration.Name = "nudDuration";
             nudDuration.Size = new Size(303, 26);
             nudDuration.TabIndex = 4;
+            nudDuration.Validating += nudDuration_Validating;
             // 
             // pbClassImage
             // 
             pbClassImage.Image = Properties.Resources.cateogry_Default;
-            pbClassImage.Location = new Point(532, 24);
+            pbClassImage.Location = new Point(948, 26);
             pbClassImage.Name = "pbClassImage";
-            pbClassImage.Size = new Size(241, 244);
+            pbClassImage.Size = new Size(273, 259);
             pbClassImage.SizeMode = PictureBoxSizeMode.StretchImage;
             pbClassImage.TabIndex = 11;
             pbClassImage.TabStop = false;
@@ -306,7 +387,7 @@
             cbCoaches.Location = new Point(184, 183);
             cbCoaches.Name = "cbCoaches";
             cbCoaches.Size = new Size(303, 28);
-            cbCoaches.TabIndex = 3;
+            cbCoaches.TabIndex = 2;
             cbCoaches.Validating += ValidateEmptyComboBoxes_Validating;
             // 
             // label4
@@ -326,7 +407,7 @@
             cbClasses.Location = new Point(184, 128);
             cbClasses.Name = "cbClasses";
             cbClasses.Size = new Size(303, 28);
-            cbClasses.TabIndex = 2;
+            cbClasses.TabIndex = 1;
             cbClasses.SelectedIndexChanged += cbClasses_SelectedIndexChanged;
             cbClasses.Validating += ValidateEmptyComboBoxes_Validating;
             // 
@@ -347,7 +428,7 @@
             cbCategories.Location = new Point(184, 76);
             cbCategories.Name = "cbCategories";
             cbCategories.Size = new Size(303, 28);
-            cbCategories.TabIndex = 1;
+            cbCategories.TabIndex = 0;
             cbCategories.SelectedIndexChanged += cbCategories_SelectedIndexChanged;
             cbCategories.Validating += ValidateEmptyComboBoxes_Validating;
             // 
@@ -363,22 +444,66 @@
             // 
             // tabPage2
             // 
+            tabPage2.Controls.Add(lblAfterDisDetails);
+            tabPage2.Controls.Add(lblAfterDisDetailsLabel);
+            tabPage2.Controls.Add(lblTotalAmountDetails);
+            tabPage2.Controls.Add(label16);
             tabPage2.Controls.Add(lblRecordsCount);
             tabPage2.Controls.Add(label7);
             tabPage2.Controls.Add(dgvMembershipDetails);
             tabPage2.Controls.Add(label6);
-            tabPage2.Location = new Point(4, 24);
+            tabPage2.Location = new Point(4, 29);
             tabPage2.Name = "tabPage2";
             tabPage2.Padding = new Padding(3);
-            tabPage2.Size = new Size(781, 614);
+            tabPage2.Size = new Size(1236, 606);
             tabPage2.TabIndex = 1;
             tabPage2.Text = "Membership Details";
             tabPage2.UseVisualStyleBackColor = true;
             // 
+            // lblAfterDisDetails
+            // 
+            lblAfterDisDetails.AutoSize = true;
+            lblAfterDisDetails.Location = new Point(879, 502);
+            lblAfterDisDetails.Name = "lblAfterDisDetails";
+            lblAfterDisDetails.Size = new Size(27, 20);
+            lblAfterDisDetails.TabIndex = 34;
+            lblAfterDisDetails.Text = "0$";
+            lblAfterDisDetails.Visible = false;
+            // 
+            // lblAfterDisDetailsLabel
+            // 
+            lblAfterDisDetailsLabel.AutoSize = true;
+            lblAfterDisDetailsLabel.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblAfterDisDetailsLabel.Location = new Point(743, 502);
+            lblAfterDisDetailsLabel.Name = "lblAfterDisDetailsLabel";
+            lblAfterDisDetailsLabel.Size = new Size(130, 20);
+            lblAfterDisDetailsLabel.TabIndex = 33;
+            lblAfterDisDetailsLabel.Text = "After Discount:";
+            lblAfterDisDetailsLabel.Visible = false;
+            // 
+            // lblTotalAmountDetails
+            // 
+            lblTotalAmountDetails.AutoSize = true;
+            lblTotalAmountDetails.Location = new Point(510, 502);
+            lblTotalAmountDetails.Name = "lblTotalAmountDetails";
+            lblTotalAmountDetails.Size = new Size(27, 20);
+            lblTotalAmountDetails.TabIndex = 32;
+            lblTotalAmountDetails.Text = "0$";
+            // 
+            // label16
+            // 
+            label16.AutoSize = true;
+            label16.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label16.Location = new Point(383, 502);
+            label16.Name = "label16";
+            label16.Size = new Size(121, 20);
+            label16.TabIndex = 31;
+            label16.Text = "Total Amount:";
+            // 
             // lblRecordsCount
             // 
             lblRecordsCount.AutoSize = true;
-            lblRecordsCount.Location = new Point(120, 502);
+            lblRecordsCount.Location = new Point(137, 502);
             lblRecordsCount.Name = "lblRecordsCount";
             lblRecordsCount.Size = new Size(36, 20);
             lblRecordsCount.TabIndex = 14;
@@ -388,7 +513,7 @@
             // 
             label7.AutoSize = true;
             label7.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label7.Location = new Point(18, 502);
+            label7.Location = new Point(35, 502);
             label7.Name = "label7";
             label7.Size = new Size(96, 20);
             label7.TabIndex = 2;
@@ -401,10 +526,10 @@
             dgvMembershipDetails.AllowUserToOrderColumns = true;
             dgvMembershipDetails.BackgroundColor = Color.White;
             dgvMembershipDetails.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvMembershipDetails.Location = new Point(67, 100);
+            dgvMembershipDetails.Location = new Point(3, 100);
             dgvMembershipDetails.Name = "dgvMembershipDetails";
             dgvMembershipDetails.ReadOnly = true;
-            dgvMembershipDetails.Size = new Size(652, 350);
+            dgvMembershipDetails.Size = new Size(1216, 350);
             dgvMembershipDetails.TabIndex = 1;
             // 
             // label6
@@ -412,7 +537,7 @@
             label6.Font = new Font("Microsoft Sans Serif", 21.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label6.Location = new Point(3, 13);
             label6.Name = "label6";
-            label6.Size = new Size(775, 42);
+            label6.Size = new Size(1216, 42);
             label6.TabIndex = 0;
             label6.Text = "Membership Details";
             label6.TextAlign = ContentAlignment.MiddleCenter;
@@ -422,7 +547,7 @@
             btnSave.FlatStyle = FlatStyle.Popup;
             btnSave.Image = Properties.Resources.Save_32;
             btnSave.ImageAlign = ContentAlignment.MiddleLeft;
-            btnSave.Location = new Point(625, 648);
+            btnSave.Location = new Point(1072, 648);
             btnSave.Name = "btnSave";
             btnSave.Size = new Size(153, 41);
             btnSave.TabIndex = 13;
@@ -435,7 +560,7 @@
             btnClose.FlatStyle = FlatStyle.Popup;
             btnClose.Image = Properties.Resources.Close_32;
             btnClose.ImageAlign = ContentAlignment.MiddleLeft;
-            btnClose.Location = new Point(466, 648);
+            btnClose.Location = new Point(913, 648);
             btnClose.Name = "btnClose";
             btnClose.Size = new Size(153, 41);
             btnClose.TabIndex = 12;
@@ -452,7 +577,7 @@
             AutoScaleDimensions = new SizeF(9F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             CancelButton = btnClose;
-            ClientSize = new Size(790, 701);
+            ClientSize = new Size(1247, 701);
             Controls.Add(tabControl1);
             Controls.Add(btnSave);
             Controls.Add(btnClose);
@@ -513,5 +638,15 @@
         private RadioButton rbYesHealthInfo;
         private RadioButton rbNoHealthInfo;
         private Label lblClientName;
+        private ComboBox cbOffers;
+        private Label lblOffer;
+        private Label lblTotalAfterDiscount;
+        private Label lblTotalAfterDiscountLabel;
+        private Label lblAfterDiscount;
+        private Label lblAfterDiscountLablel;
+        private Label lblAfterDisDetails;
+        private Label lblAfterDisDetailsLabel;
+        private Label lblTotalAmountDetails;
+        private Label label16;
     }
 }
