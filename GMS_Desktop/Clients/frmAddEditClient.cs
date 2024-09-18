@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using GMS_BusinessLogic;
 using GMS_Desktop.Properties;
 using System.IO;
+using GMS_Desktop.Global;
 
 namespace GMS_Desktop
 {
@@ -239,7 +240,7 @@ namespace GMS_Desktop
                 errorProvider1.SetError(txtPhone, null);   
             }
 
-            if (!clsValidation.IsNumber(txtPhone.Text))
+            if (!Global.clsValidation.IsNumber(txtPhone.Text))
             {
                 txtPhone.Focus();
                 e.Cancel = true;
@@ -258,7 +259,7 @@ namespace GMS_Desktop
             if (txtEmail.Text.Trim() == string.Empty)
                 return;
 
-            if (!clsValidation.validateEmail(txtEmail.Text))
+            if (!Global.clsValidation.validateEmail(txtEmail.Text))
             {
                 e.Cancel = true;
                 txtEmail.Focus();

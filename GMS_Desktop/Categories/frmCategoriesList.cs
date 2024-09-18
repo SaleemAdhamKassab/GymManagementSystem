@@ -15,14 +15,24 @@ namespace GMS_Desktop
     public partial class frmCategoriesList : Form
     {
         private DataTable _dtCategoriesList;
+        bool _showCategories = true;
 
-        public frmCategoriesList()
+        public frmCategoriesList(bool isAdmin)
         {
             InitializeComponent();
+            _showCategories = isAdmin;
         }
 
         private void frmCategoriesList_Load(object sender, EventArgs e)
         {
+            if (!_showCategories)
+            {
+                MessageBox.Show("Access denied!, you haven't permission in this screen Contact your Admin", "Error",
+                MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Close();
+                return;
+            }    
+
             Category category = new Category();
 
             _dtCategoriesList = category.get(string.Empty);
@@ -33,7 +43,7 @@ namespace GMS_Desktop
             if (dgvCategoriesList.Rows.Count > 0)
             {
                 dgvCategoriesList.Columns[0].HeaderText = "Category Name";
-                dgvCategoriesList.Columns[0].Width = 250;
+                dgvCategoriesList.Columns[0].Width = 300;
 
 
             }

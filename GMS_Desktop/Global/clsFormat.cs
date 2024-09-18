@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GMS_Desktop
+namespace GMS_Desktop.Global
 {
     public class clsFormat
     {

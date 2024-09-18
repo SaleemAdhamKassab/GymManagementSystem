@@ -425,10 +425,10 @@
             tpCart.Controls.Add(label5);
             tpCart.Controls.Add(label1);
             tpCart.Controls.Add(dgvCartDetails);
-            tpCart.Location = new Point(4, 24);
+            tpCart.Location = new Point(4, 29);
             tpCart.Name = "tpCart";
             tpCart.Padding = new Padding(3);
-            tpCart.Size = new Size(739, 499);
+            tpCart.Size = new Size(739, 494);
             tpCart.TabIndex = 1;
             tpCart.Text = "Cart";
             tpCart.UseVisualStyleBackColor = true;
@@ -526,12 +526,12 @@
             contextMenuStrip1.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             contextMenuStrip1.Items.AddRange(new ToolStripItem[] { deleteToolStripMenuItem });
             contextMenuStrip1.Name = "contextMenuStrip1";
-            contextMenuStrip1.Size = new Size(126, 28);
+            contextMenuStrip1.Size = new Size(181, 50);
             // 
             // deleteToolStripMenuItem
             // 
             deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
-            deleteToolStripMenuItem.Size = new Size(125, 24);
+            deleteToolStripMenuItem.Size = new Size(180, 24);
             deleteToolStripMenuItem.Text = "Delete";
             deleteToolStripMenuItem.Click += deleteToolStripMenuItem_Click;
             // 

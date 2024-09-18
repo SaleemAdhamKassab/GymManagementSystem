@@ -1,4 +1,5 @@
 ﻿using GMS_BusinessLogic;
+using GMS_Desktop.Global;
 using GMS_Desktop.Properties;
 using System;
 using System.Collections.Generic;
@@ -15,6 +16,7 @@ namespace GMS_Desktop
     public partial class frmShowClientInfo : Form
     {
         private int _ClientID = -1;
+        private Client _Client; 
 
         public frmShowClientInfo(int clientID)
         {
@@ -29,9 +31,9 @@ namespace GMS_Desktop
 
         private void frmShowClientInfo_Load(object sender, EventArgs e)
         {
-            Client client = Client.find(_ClientID);
+            _Client = Client.find(_ClientID);
 
-            if (client == null)
+            if (_Client == null)
             {
                 MessageBox.Show($"No client with ID = {_ClientID}", "Error",
                 MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -39,16 +41,7 @@ namespace GMS_Desktop
                 return;
             }
 
-            lblName.Text = client.FullName;
-            lblGendor.Text = client.Gendor == 0 ? "Male" : "Female";
-            lblDateOfBirth.Text = clsFormat.DateToShort(client.DateOfBirth);
-            lblAddress.Text = client.Address;
-            lblPhone.Text = client.Phone;
-            lblEmail.Text = client.Email;
-            if (client.ImagePath != null)
-                pbImage.ImageLocation = client.ImagePath;
-            else
-                pbImage.Image = client.Gendor == 0 ? Resources.Male_512 : Resources.Male_512;
+            ctrlPersonCard1.LoadPersonInfo(_Client.PersonId);
         }
     }
 }

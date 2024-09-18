@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             tcMembershipsTabs = new TabControl();
             tbMembershipList = new TabPage();
             cbIsActive = new ComboBox();
@@ -37,14 +38,20 @@
             lblRecordsCount = new Label();
             label1 = new Label();
             dgvMembershipList = new DataGridView();
+            contextMenuStrip1 = new ContextMenuStrip(components);
+            subscipeToClassToolStripMenuItem = new ToolStripMenuItem();
+            addNewSubscriptionToolStripMenuItem = new ToolStripMenuItem();
             tbExpireSoon = new TabPage();
+            label2 = new Label();
             lblExpireSoonRecordsCount = new Label();
             label4 = new Label();
             dgvMembershipsExpireSoon = new DataGridView();
             btnClose = new Button();
+            showMembershipDetailsToolStripMenuItem = new ToolStripMenuItem();
             tcMembershipsTabs.SuspendLayout();
             tbMembershipList.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvMembershipList).BeginInit();
+            contextMenuStrip1.SuspendLayout();
             tbExpireSoon.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvMembershipsExpireSoon).BeginInit();
             SuspendLayout();
@@ -107,6 +114,7 @@
             txtFilterValue.TabIndex = 11;
             txtFilterValue.Visible = false;
             txtFilterValue.TextChanged += txtFilterValue_TextChanged;
+            txtFilterValue.KeyPress += txtFilterValue_KeyPress;
             // 
             // label3
             // 
@@ -145,24 +153,59 @@
             dgvMembershipList.AllowUserToOrderColumns = true;
             dgvMembershipList.BackgroundColor = Color.White;
             dgvMembershipList.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvMembershipList.ContextMenuStrip = contextMenuStrip1;
             dgvMembershipList.Location = new Point(28, 93);
             dgvMembershipList.Name = "dgvMembershipList";
             dgvMembershipList.ReadOnly = true;
             dgvMembershipList.Size = new Size(967, 405);
             dgvMembershipList.TabIndex = 6;
+            dgvMembershipList.DoubleClick += dgvMembershipList_DoubleClick;
+            // 
+            // contextMenuStrip1
+            // 
+            contextMenuStrip1.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            contextMenuStrip1.Items.AddRange(new ToolStripItem[] { showMembershipDetailsToolStripMenuItem, subscipeToClassToolStripMenuItem, addNewSubscriptionToolStripMenuItem });
+            contextMenuStrip1.Name = "contextMenuStrip1";
+            contextMenuStrip1.Size = new Size(260, 98);
+            // 
+            // subscipeToClassToolStripMenuItem
+            // 
+            subscipeToClassToolStripMenuItem.Name = "subscipeToClassToolStripMenuItem";
+            subscipeToClassToolStripMenuItem.Size = new Size(259, 24);
+            subscipeToClassToolStripMenuItem.Text = "Subscriptions";
+            subscipeToClassToolStripMenuItem.Click += subscipeToClassToolStripMenuItem_Click;
+            // 
+            // addNewSubscriptionToolStripMenuItem
+            // 
+            addNewSubscriptionToolStripMenuItem.Name = "addNewSubscriptionToolStripMenuItem";
+            addNewSubscriptionToolStripMenuItem.Size = new Size(259, 24);
+            addNewSubscriptionToolStripMenuItem.Text = "Add New Subscription";
+            addNewSubscriptionToolStripMenuItem.Click += addNewSubscriptionToolStripMenuItem_Click;
             // 
             // tbExpireSoon
             // 
+            tbExpireSoon.Controls.Add(label2);
             tbExpireSoon.Controls.Add(lblExpireSoonRecordsCount);
             tbExpireSoon.Controls.Add(label4);
             tbExpireSoon.Controls.Add(dgvMembershipsExpireSoon);
-            tbExpireSoon.Location = new Point(4, 29);
+            tbExpireSoon.Location = new Point(4, 24);
             tbExpireSoon.Name = "tbExpireSoon";
             tbExpireSoon.Padding = new Padding(3);
-            tbExpireSoon.Size = new Size(1040, 555);
+            tbExpireSoon.Size = new Size(1040, 560);
             tbExpireSoon.TabIndex = 1;
             tbExpireSoon.Text = "Expire Soon";
             tbExpireSoon.UseVisualStyleBackColor = true;
+            // 
+            // label2
+            // 
+            label2.Font = new Font("Microsoft Sans Serif", 21.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label2.ForeColor = Color.Blue;
+            label2.Location = new Point(3, 25);
+            label2.Name = "label2";
+            label2.Size = new Size(1024, 36);
+            label2.TabIndex = 11;
+            label2.Text = "Expired Soon List";
+            label2.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // lblExpireSoonRecordsCount
             // 
@@ -210,6 +253,13 @@
             btnClose.UseVisualStyleBackColor = true;
             btnClose.Click += btnClose_Click;
             // 
+            // showMembershipDetailsToolStripMenuItem
+            // 
+            showMembershipDetailsToolStripMenuItem.Name = "showMembershipDetailsToolStripMenuItem";
+            showMembershipDetailsToolStripMenuItem.Size = new Size(259, 24);
+            showMembershipDetailsToolStripMenuItem.Text = "Show Membership details";
+            showMembershipDetailsToolStripMenuItem.Click += showMembershipDetailsToolStripMenuItem_Click;
+            // 
             // frmMembership
             // 
             AutoScaleDimensions = new SizeF(9F, 20F);
@@ -229,6 +279,7 @@
             tbMembershipList.ResumeLayout(false);
             tbMembershipList.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dgvMembershipList).EndInit();
+            contextMenuStrip1.ResumeLayout(false);
             tbExpireSoon.ResumeLayout(false);
             tbExpireSoon.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dgvMembershipsExpireSoon).EndInit();
@@ -251,5 +302,10 @@
         private Label lblExpireSoonRecordsCount;
         private Label label4;
         private DataGridView dgvMembershipsExpireSoon;
+        private ContextMenuStrip contextMenuStrip1;
+        private ToolStripMenuItem subscipeToClassToolStripMenuItem;
+        private ToolStripMenuItem addNewSubscriptionToolStripMenuItem;
+        private Label label2;
+        private ToolStripMenuItem showMembershipDetailsToolStripMenuItem;
     }
 }

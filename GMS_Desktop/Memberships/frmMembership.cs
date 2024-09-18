@@ -87,7 +87,7 @@ namespace GMS_Desktop
                 dgvMembershipList.Columns[4].HeaderText = "Phone";
                 dgvMembershipList.Columns[4].Width = 150;
 
-                dgvMembershipList.Columns[5].HeaderText = "IsActive";
+                dgvMembershipList.Columns[5].HeaderText = "Is Active";
                 dgvMembershipList.Columns[5].Width = 90;
             }
 
@@ -106,7 +106,7 @@ namespace GMS_Desktop
                 cbIsActive.SelectedIndex = 0;
             }
 
-            else 
+            else
             {
                 txtFilterValue.Visible = (cbFilterBy.Text != "None");
                 cbIsActive.Visible = false;
@@ -167,6 +167,12 @@ namespace GMS_Desktop
             lblRecordsCount.Text = dgvMembershipList.Rows.Count.ToString();
         }
 
+        private void txtFilterValue_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (cbFilterBy.Text == "Id")
+                e.Handled = !char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar);
+        }
+
         private void cbIsActive_SelectedIndexChanged(object sender, EventArgs e)
         {
             string FilterColumn = "IsActive";
@@ -194,10 +200,82 @@ namespace GMS_Desktop
             lblRecordsCount.Text = dgvMembershipList.Rows.Count.ToString();
         }
 
+        private void subscipeToClassToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (dgvMembershipList.Rows.Count == 0) return;
 
-        //  Expire Soon
+            int membershipId = (int)dgvMembershipList.CurrentRow.Cells[0].Value;
 
+            Membership membership = Membership.find(membershipId);
 
-        
+            if (membership == null)
+            {
+                MessageBox.Show("No Membership with Id = " + membershipId.ToString(), "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            frmShowMembershipDetails frm = new frmShowMembershipDetails(membership);
+            frm.ShowDialog();
+
+            frmMembership_Load(null, null);
+        }
+
+        private void dgvMembershipList_DoubleClick(object sender, EventArgs e)
+        {
+            if (dgvMembershipList.Rows.Count == 0) return;
+
+            int membershipId = (int)dgvMembershipList.CurrentRow.Cells[0].Value;
+
+            Membership membership = Membership.find(membershipId);
+
+            if (membership == null)
+            {
+                MessageBox.Show("No Membership with Id = " + membershipId.ToString(), "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            frmShowMembershipDetails frm = new frmShowMembershipDetails(membership);
+            frm.ShowDialog();
+
+            frmMembership_Load(null, null);
+        }
+
+        private void addNewSubscriptionToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (dgvMembershipList.Rows.Count == 0) return;
+
+            int membershipId = (int)dgvMembershipList.CurrentRow.Cells[0].Value;
+            Membership membership = Membership.find(membershipId);
+
+            if (membership == null)
+            {
+                MessageBox.Show("No Membership with Id = " + membershipId.ToString(), "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            frmAddMembership frm = new frmAddMembership(membership);
+            frm.ShowDialog();
+            frmMembership_Load(null, null);
+        }
+
+        private void showMembershipDetailsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            int membershipId = (int)dgvMembershipList.CurrentRow.Cells[0].Value;
+
+            Membership membership = Membership.find(membershipId);
+
+            if (membership == null)
+            {
+                MessageBox.Show("No Membership with Id = " + membershipId.ToString(), "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            frmShowClientInfo frm = new frmShowClientInfo(membership.ClientInfo.ClientId);
+            frm.ShowDialog();
+        }
     }
 }

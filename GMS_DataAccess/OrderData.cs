@@ -76,8 +76,8 @@ namespace GMS_DataAccess
 			int productId = 0, productQuantity = 0;
 			decimal productPrice = 0, orderTotalAmount = 0;
 
-			//productQuantities -> productId - Quantity
-			List<(int, int)> productQuantities = [];
+			//productQuantities -> productId - Quantity - price
+			List<(int, int, decimal)> productQuantitiesAndPrice = [];
 
 
 			for (int i = 0; i < orderProducts.Count; i++)
@@ -86,7 +86,7 @@ namespace GMS_DataAccess
 				productPrice = orderProducts.ElementAt(i).Item2;
 				productQuantity = orderProducts.ElementAt(i).Item3;
 
-				productQuantities.Add(new(productId, productQuantity));
+				productQuantitiesAndPrice.Add(new(productId, productQuantity, productPrice));
 
 				//2) insert into OrderProducts
 				query = $"INSERT INTO OrderProducts (ProductId,Price,Quantity, OrderId) VALUES ({productId}, {productPrice}, {productQuantity}, {orderId});SELECT SCOPE_IDENTITY();";
@@ -99,9 +99,12 @@ namespace GMS_DataAccess
 			CRUD.executeNonQuery(query);
 
 			//4) Update Product Quantity
-			for (int i = 0; i < productQuantities.Count; i++)
+			for (int i = 0; i < productQuantitiesAndPrice.Count; i++)
 			{
-				query = $"UPDATE Products SET Quantity = Quantity + {productQuantities[i].Item2} where id = {productQuantities[i].Item1}";
+				query = $@"UPDATE Products
+						   SET Quantity = Quantity + {productQuantitiesAndPrice[i].Item2},
+							   Price = {productQuantitiesAndPrice[i].Item3}
+						   where id = {productQuantitiesAndPrice[i].Item1}";
 				CRUD.executeNonQuery(query);
 			}
 

@@ -71,5 +71,8 @@ namespace GMS_BusinessLogic
 
         // This is for Order's Products details
         public DataTable getOrderProductsDetails(int orderId) => SalesOrderData.getOrderDetails(orderId);
+
+        public decimal getSalesProfits()
+        => SalesOrderData.getTheProfitsOfSales();
     }
 }
