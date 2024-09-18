@@ -1,0 +1,69 @@
+﻿@using GMS.ViewModels
+@model List<SalesIndexViewModel>
+
+<h4 style=" text-align: center;">Sales</h4>
+<div class="justify-content-center">
+	<a class="btn btn-outline-primary mb-1" asp-action="add">New Client Order</a>
+	<form method="get" asp-action="Index">
+		<div class="row">
+			<div class="input-group mb-3">
+				<input type="search" name="searchString" class="form-control input-text" placeholder="Search Sales by Client....">
+				<div class="input-group-append">
+					<button type="submit" class="btn btn-outline-warning"><i class="fa fa-search"></i></button>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<th>
+				Date
+			</th>
+			<th>
+				Client
+			</th>
+			<th>
+				User Name
+			</th>
+			<th>
+				Amount
+			</th>
+			<th>
+				Discount %
+			</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (SalesIndexViewModel sale in Model)
+		{
+			<tr>
+				<td>
+					@Html.DisplayFor(modelItem => sale.Date)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => sale.Client)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => sale.UserName)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => sale.Amount)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => sale.AmountAfterDiscount) %
+				</td>
+
+				<td>
+					@* 	<div style="float:right">
+				<a asp-action="details" asp-route-orderId="@sale.OrderId"><i class="fa fa-info" style="margin-right:10px; color:mediumaquamarine" title="Details"></i></a>
+				<a asp-action="delete" asp-route-orderId="@order.OrderId"><i class="fa fa-trash" style="color:red" title="Delete"></i></a>
+				</div> *@
+				</td>
+			</tr>
+		}
+	</tbody>
+</table>

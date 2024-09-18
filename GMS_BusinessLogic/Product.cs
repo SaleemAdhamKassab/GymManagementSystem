@@ -14,9 +14,9 @@ namespace GMS_BusinessLogic
 		public int Quantity { get; set; }
 		public int CategoryId { get; set; }
 		public double Price { get; set; }
-		public double PriceWithProfit {  get; set; }
+		public double PriceWithProfit { get; set; }
 		public Category Category { get; set; }
-		public string ImagePath {  get; set; }
+		public string ImagePath { get; set; }
 
 		public Product()
 		{
@@ -71,6 +71,7 @@ namespace GMS_BusinessLogic
 
 		public int add(Product product) => this.Id = ProductData.add(product.Name, product.Quantity, product.Price, product.PriceWithProfit, product.CategoryId, product.ImagePath);
 		public DataTable get(string searchString) => ProductData.get(searchString);
+		public static DataTable getForWeb(string searchString) => ProductData.get(searchString);
 		public static DataTable get() => ProductData.get();
 		public DataTable getProductsByItem(int categryId) => ProductData.getProductsByItem(categryId);
 		public bool update(Product product) => ProductData.update(product.Id, product.Name, product.Quantity, product.Price, product.PriceWithProfit, product.CategoryId, product.ImagePath);

@@ -135,5 +135,44 @@ namespace GMS.Mapper
 
 			return orderDetails;
 		}
+		///////////////////////////// Sales /////////////////////////////
+		public static List<SalesIndexViewModel> dtToSalesDetails(DataTable salesDetailsDataTable)
+		{
+			List<SalesIndexViewModel> salesDetails = [];
+
+			foreach (DataRow dataRow in salesDetailsDataTable.Rows)
+			{
+				SalesIndexViewModel salesIndexViewModel = new()
+				{
+					Date = (DateTime)dataRow["Date"],
+					Client = dataRow["Client"].ToString(),
+					UserName = dataRow["UserName"].ToString(),
+					Amount = double.Parse(dataRow["Amount"].ToString()),
+					AmountAfterDiscount = double.Parse(dataRow["AmountAfterDiscount"].ToString()),
+				};
+				SalesIndexViewModel sale = salesIndexViewModel;
+
+				salesDetails.Add(sale);
+			}
+
+			return salesDetails;
+		}
+		///////////////////////////// Client /////////////////////////////
+		public static List<Client> dtToClient(DataTable clientsDataTable)
+		{
+			List<Client> clients = [];
+
+			foreach (DataRow dataRow in clientsDataTable.Rows)
+			{
+				Client client = new()
+				{
+					ClientId = 1,
+					FirstName = dataRow["FullName"].ToString()
+				};
+				clients.Add(client);
+			}
+
+			return clients;
+		}
 	}
 }

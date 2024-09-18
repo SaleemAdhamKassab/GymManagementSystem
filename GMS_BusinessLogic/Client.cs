@@ -11,7 +11,7 @@ namespace GMS_BusinessLogic
 		public int ClientId { get; set; }
 		public int PersonId { get; set; }
 
-		public Client() : base() 
+		public Client() : base()
 		{
 			ClientId = -1;
 			PersonId = -1;
@@ -20,7 +20,7 @@ namespace GMS_BusinessLogic
 		}
 
 		private Client(int clientId, int personId, string firstName, string secName, string thirdName, string lastName,
-			byte gendor, DateTime dateOfBirth, string address, string phone, string? email, string? imagePath, int roleId) : 
+			byte gendor, DateTime dateOfBirth, string address, string phone, string? email, string? imagePath, int roleId) :
 			base(personId, firstName, secName, thirdName, lastName, gendor, dateOfBirth, address,
 				phone, email, imagePath, roleId)
 		{
@@ -47,6 +47,7 @@ namespace GMS_BusinessLogic
 		}
 
 		public DataTable get(string searchString) => ClientData.getClientsList();
+		public static DataTable getForWeb() => ClientData.getClientsList();
 
 		public static Client find(int id)
 		{
@@ -74,7 +75,7 @@ namespace GMS_BusinessLogic
 			DateTime dateOfBirth = DateTime.Now;
 
 			if (ClientData.getClientInfoByFullName(fullName, ref phone,
-				ref address, ref email, ref imagePath, ref roleId ,ref personId, ref clientId))
+				ref address, ref email, ref imagePath, ref roleId, ref personId, ref clientId))
 
 				return new Client(clientId, personId, firstName, secondName, thirdName, lastName, gendor,
 					dateOfBirth, address, phone, email, imagePath, roleId);
